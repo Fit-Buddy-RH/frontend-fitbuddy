@@ -1,0 +1,15 @@
+.tabs__container{
+    max-width: 200px;
+}
+
+.user__card{
+    max-width: 360px;
+}
+
+
+.user__card-profile{
+    transition: all 0.15s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform, filter;
+}
+
