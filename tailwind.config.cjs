@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      scale: {
+        'm': '0.35',
+      },
+      height: {
+        '860': '860px',
+      },
       backgroundImage: {
         'my_bg_image' : "url('./src/assets/LandingImage.png')",
         'my_bg_image_mobile' : "url('./src/assets/LandingImageMobile.png')",
