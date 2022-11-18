@@ -12,8 +12,8 @@ export const CardUserProfile = () => {
             alt="" 
             className="object-cover rounded-l-xl h-auto w-28 sm:w-32"
         />
-        <div className="flex flex-col sm:flex-row">
-            <div className="py-2 px-4">
+        <div className="pl-2 flex flex-col sm:flex-row w-full">
+                <div className="py-2 px-4 w-full">
                     <h2 className=" text-gray-50 text-xl font-bold italic ">John</h2>
                     <section className="grid grid-cols-2 grid-rows-2">
                         <section className="relative right-4 flex flex-col  items-center">

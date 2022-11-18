@@ -11,8 +11,8 @@ export const CardFriendRequest = () => {
             alt="" 
             className="object-cover rounded-l-xl h-auto w-28 sm:w-32"
         />
-        <div className="flex flex-col sm:flex-row">
-                <div className="py-2 px-4">
+        <div className="pl-2 flex flex-col sm:flex-row w-full">
+                <div className="py-2 px-4 w-full">
                     <h2 className=" text-gray-50 text-xl font-bold italic ">John</h2>
                     <section className="grid grid-cols-2 grid-rows-2">
                         <section className="relative right-4 flex flex-col  items-center">
@@ -33,14 +33,14 @@ export const CardFriendRequest = () => {
                         </section>
                     </section>
                 </div>
-                {/* <div className="self-center flex flex-row sm:flex-col justify-center sm:gap-3 mb-4">
-                    <button className="bg-violet-900 font-rubik text-gray-50 rounded-full py-2 px-4 mx-4 sm:mt-4">
+                <div className="self-center flex flex-row sm:flex-col justify-center items-center gap-3 mb-4 mt-1">
+                    <button className="bg-violet-900 font-rubik text-sm text-gray-50 rounded-full px-2 py-1 sm:py-2 sm:px-4 sm:mx-4 sm:mt-4">
                         Aceptar
                     </button>
-                    <button className="bg-gray-600 font-rubik text-gray-50 rounded-full py-2 px-4 mx-4 sm:mt-4">
+                    <button className="bg-gray-600 font-rubik text-sm text-gray-50 rounded-full px-2 py-1 sm:py-2 sm:px-4 sm:mx-4 sm:mt-4">
                         Rechazar
                     </button>
-                </div> */}
+                </div>
             </div>
         </div>
     )

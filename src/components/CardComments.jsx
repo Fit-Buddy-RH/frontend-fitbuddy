@@ -5,7 +5,7 @@ export const CardComments = () => {
     <div className="card-comment__container bg-black-600 transition rounded-xl flex flex-col my-4" >
         <div className="grid grid-cols-12">
             <section className="col-span-2 flex flex-col justify-center items-center p-4">
-                <h3 className="text-gray-50 md:text-lg xl:text-2xl font-bold italic mb-4 text-center">
+                <h3 className="text-gray-50 text-xl font-bold italic mb-4 text-center">
                     John Doe
                 </h3>
                 <img
@@ -16,12 +16,14 @@ export const CardComments = () => {
             </section>
             <section className="col-span-10 bg-black-700 rounded-xl p-4 m-4">
                 <section className="flex justify-between">
-                    <h3 className="text-gray-50 md:text-lg xl:text-2xl font-bold mb-4">
+                    <h3 className="text-gray-50 text-xl font-bold mb-4">
                         Muy buena carrera con muy agradables personas !
                     </h3>
-                    <StarsFullIcon className="scale-50"/>
+                    <section className="flex flex-end justify-end">
+                        <StarsFullIcon className="scale-50"/>
+                    </section>
                 </section>
-                <p className="text-gray-50 md:text-sm xl:text-lg my-4 mr-4">
+                <p className="text-gray-50 text-sm my-4 mr-4">
                 La localidad es muy buena. John es muy amable y siempre está dispuesto a dar recomendaciones a personas que recién están empezando. Me gusta este grupo!
                 </p>
             </section>
