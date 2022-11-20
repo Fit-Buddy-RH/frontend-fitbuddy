@@ -10,6 +10,7 @@ module.exports = {
         'my_bg_image' : "url('./src/assets/LandingImage.png')",
         'my_bg_image_mobile' : "url('./src/assets/LandingImageMobile.png')",
         'card_bg_image' : "url('./src/assets/RaceCardBackground.svg')",
+        'login_image':"url('./src/assets/LoginImage.png')"
       }
     },
     fontFamily:{
