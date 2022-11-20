@@ -5,7 +5,7 @@ import { ReactComponent as FacebookIcon } from '../assets/FacebookIcon.svg'
 export const Login = () => {
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-6 h-screen bg-cover bg-login_image blur-sm"></div>
+      <div className="col-span-6 h-screen bg-cover bg-login_image"></div>
       <div className="flex justify-center col-span-6 bg-black-700">
         <div className="mt-6 h-3/6 flex flex-col justify-center filter-none">
           <div className="flex flex-row mt-10">

@@ -5,10 +5,10 @@ import { ReactComponent as FacebookIcon } from '../assets/FacebookIcon.svg'
 export const LoginMobile = () => {
   return (
     <>
-      <body className="relative">
-        <div className="h-screen bg-cover bg-login_image blur-sm">
+      <body className="relative md:grid md:grid-cols-12">
+        <div className="h-screen bg-cover bg-login_image blur-sm md:col-span-6 md:h-screen  md:blur-none">
         </div>
-        <div className=" absolute w-40 h-1/2 rounded inset-24  blur-none bg-black-700/[.06] absolute text-gray-50">
+        <div className=" absolute w-40 h-1/2 rounded inset-24  blur-none bg-black-700/[.06] absolute text-gray-50 md:bg-black-700 md:col-span-6 md:grid-cols-6 md:inset-0 md:static md:h-full md:w-full">
           <div className="flex flex-row mt-10">
             <FitbuddyIcon />
             <h1 className="p-2 text-gray-50 font-rubik text-2xl italic font-bold">Fitbuddy</h1>
