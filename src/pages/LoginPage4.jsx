@@ -1,11 +1,17 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
 
-import { useForm } from "react-hook-form";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+import "./loginPage4.scss";
+
+import { useForm, Controller } from "react-hook-form";
 
 export const LoginPage4 = () => {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -16,14 +22,14 @@ export const LoginPage4 = () => {
     <div className="grid grid-cols-12">
       <section className="hidden lg:block lg:col-span-6 bg-login_image min-h-screen bg-cover"></section>
       <section className="col-span-12 lg:col-span-6 min-h-screen bg-login_image lg:bg-none lg:bg-gray-900 bg-cover flex flex-col justify-center items-center ">
-        <section className="bg-gray-900 bg-opacity-50 p-4 md:p-12 w-11/12 md:w-6/12 lg:w-10/12 xl:w-6/12 rounded-xl">
+        <section className="bg-gray-900 bg-opacity-50 p-4 md:p-12 w-11/12 md:w-6/12 lg:w-10/12 xl:w-6/12 rounded-xl ">
           <section className="flex items-center justify-center gap-4 mb-8 ">
             <FitbuddyIcon />
             <h1 className="font-rubik text-3xl italic font-semibold text-gray-50">
               Fitbuddy
             </h1>
           </section>
-          <h2 className="font-rubik lg:text-xl italic font-semibold text-gray-50 mb-8 text-center">
+          <h2 className="font-rubik lg:text-xl italic font-semibold text-gray-50 mb-8 text-center ">
             Registra tu número de teléfono:
           </h2>
           <section>
@@ -36,20 +42,27 @@ export const LoginPage4 = () => {
               >
                 Número de teléfono:
               </label>
-              <input
-                type="number"
+              <Controller
+                control={control}
                 name="phone"
-                placeholder="(+__) ___-___-___"
-                {...register("phone", {
+                rules={{
                   required: true,
-                  minLength: 6,
+                  minLength: 12,
                   maxLength: 12,
-                })}
-                className={`block w-full bg-transparent outline-none rounded-xl border-b-2 py-2 px-4 mb-8 placeholder-gray-500  ${
-                  errors.phone
-                    ? "text-orange-900 border-orange-900"
-                    : "text-black-700 border-violet-900"
-                }`}
+                }}
+                render={({ field: { ref, ...field } }) => (
+                  <PhoneInput
+                    {...field}
+                    inputProps={{ ref }}
+                    containerClass="phone__container"
+                    inputClass="phone__input"
+                    buttonClass="phone__button"
+                    dropdownClass="phone__dropdown"
+                    searchClass="phone__search"
+                    country={"mx"}
+                    countryCodeEditable={false}
+                  />
+                )}
               />
               {errors.phone && (
                 <p className="text-orange-900 text-sm mb-8">

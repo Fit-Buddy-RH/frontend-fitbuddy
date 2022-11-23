@@ -1,9 +1,25 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
 
+import { useGoogleLogin } from "@react-oauth/google";
+
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 export const LoginPage3 = () => {
+  const googleLogin = useGoogleLogin({
+    // flow: "auth-code",
+    onSuccess: async (codeResponse) => {
+      console.log(codeResponse);
+      // const tokens = await axios.post("http://localhost:8080/auth/google", {
+      //   code: codeResponse.code,
+      // });
+
+      // console.log(tokens);
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
+
   const {
     register,
     handleSubmit,
@@ -27,6 +43,7 @@ export const LoginPage3 = () => {
             Se ha enviado un código a tu Whatsapp. Introdúcelo a continuacion
             para validar tu cuenta.
           </h2>
+          <button onClick={() => googleLogin()}>Sign in with Google 🚀 </button>
           <section>
             <form onSubmit={handleSubmit(onSubmit)} className="w-92">
               <label
@@ -39,20 +56,20 @@ export const LoginPage3 = () => {
               </label>
               <input
                 type="number"
-                name="phone"
+                name="code"
                 placeholder=""
-                {...register("phone", {
+                {...register("code", {
                   required: true,
                   minLength: 6,
                   maxLength: 6,
                 })}
                 className={`block w-full bg-transparent outline-none rounded-xl border-b-2 py-2 px-4 mb-8 placeholder-gray-500  ${
-                  errors.phone
+                  errors.code
                     ? "text-orange-900 border-orange-900"
                     : "text-black-700 border-violet-900"
                 }`}
               />
-              {errors.phone && (
+              {errors.code && (
                 <p className="text-orange-900 text-sm mb-8">Código inválido.</p>
               )}
               <section className="col-span-12 flex flex-row w-full justify-center">
