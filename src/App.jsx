@@ -1,4 +1,6 @@
 import React from 'react';
+import {Login} from './pages/Login'
+import {LoginMobile} from './pages/LoginMobile'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from 'react'
 import { LandingPage } from './pages/LandingPage'
@@ -27,6 +29,8 @@ function App() {
         <Route path="/post" element={<CreateRunPage/>} />
         <Route path="/user" element={<UserPage/>} />
         <Route path="/dashboard" element={<DashboardPage/>} />
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/login-mobile" element={<LoginMobile/>}/>
       </Routes>
     </BrowserRouter>
   )
