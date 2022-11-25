@@ -47,7 +47,7 @@ export const LoginPage4 = () => {
                 name="phone"
                 rules={{
                   required: true,
-                  minLength: 12,
+                  minLength: 9,
                   maxLength: 12,
                 }}
                 render={({ field: { ref, ...field } }) => (

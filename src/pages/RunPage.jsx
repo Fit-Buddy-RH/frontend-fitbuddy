@@ -1,12 +1,14 @@
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { CardRace } from "../components/CardRace";
 import { CardRaceInfo } from "../components/CardRaceInfo";
-import { CardMapShow } from "../components/CardMapShow";
+import { CardMap } from "../components/CardMap";
 import { CardComments } from "../components/CardComments";
 
 import "./runPage.scss";
 
 export const RunPage = () => {
+  let userAccepted = false;
+
   return (
     <DefaultLayout>
       <div className=" grid grid-cols-12 gap-6 md:gap-8 xl:mx-28 2xl:mx-96">
@@ -22,7 +24,7 @@ export const RunPage = () => {
           <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
             Ubicación
           </h2>
-          <CardMapShow />
+          <CardMap userAccepted={userAccepted}/>
         </section>
         <section className="col-span-12">
           <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">

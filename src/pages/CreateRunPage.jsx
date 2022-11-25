@@ -3,18 +3,27 @@ import { CardMapShow } from "../components/CardMapShow";
 
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 import "./createRunPage.scss";
 
 export const CreateRunPage = () => {
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
+  const [state, setState] = useState();
+
+  const callback = (e) => {
+    setState(e);
+    console.log(e);
+  };
+
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => console.log(data);
   console.log(errors);
   console.log(image);
@@ -187,7 +196,17 @@ export const CreateRunPage = () => {
             <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
               Ubicación
             </h2>
-            <CardMapShow />
+            {/* <Controller
+              control={control}
+              name="coords"
+              rules={{
+                required: true,
+              }}
+              render={({ field: { value, onChange, ...field } }) => (
+                <CardMapShow {...field} value={value} onChange={onChange} />
+              )}
+            /> */}
+            <CardMapShow callback={callback} />
           </section>
           <section className="col-span-12 flex flex-row justify-center">
             <input
