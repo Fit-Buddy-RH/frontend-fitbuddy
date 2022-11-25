@@ -71,7 +71,7 @@ export const UserPage = () => {
     
     return(
         <DefaultLayout>
-            <div className="grid grid-cols-12 gap-4 place-items-center">
+            <div className="grid grid-cols-12 gap-4 place-items-center mx-0 xl:mx-48 2xl:mx-96">
                 {!friend && (
                     <section className="user__card col-start-4 col-span-6 mb-16 " >
                         <section className="user__card-profile">
@@ -79,10 +79,9 @@ export const UserPage = () => {
                         </section>
                     </section>
                 )}
-                <section className='col-start-3 col-span-5 place-self-start text-gray-50'>
-                    <div className="">
+                <section className='col-span-12 sm:col-span-7 flex flex-col place-self-start  w-full h-min-screen text-gray-50'>
                         <ul
-                            className="flex mb-0 list-none flex-row bg-gray-800 rounded-full tabs__container"
+                            className="flex list-none flex-row justify-center items-center place-self-center sm:place-self-start mb-4 bg-gray-800 rounded-full tabs__container"
                             role="tablist"
                         >
                             <li className="mr-2 text-center">
@@ -124,31 +123,41 @@ export const UserPage = () => {
                             </a>
                             </li>
                         </ul>
-                        <div className="flex-col break-words bg-white w-full mb-6 rounded">
-                            <div className="px-4 py-5 flex-auto">
+                        <div className="flex-col break-words bg-white w-full rounded">
+                            <div className="flex-auto">
                             <div className="w-full">
                                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-8">
+                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold ">
                                         Carreras Creadas
                                     </h2>
-                                    <CardRaceProfile className="card-race-profile"/>
-                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-8">
+                                    <section className='my-4'>
+                                        <CardRaceProfile/>
+                                    </section>
+                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
                                         Carreras Actuales
                                     </h2>
-                                    <CardRaceProfile/>
-                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-8">
+                                    <section className='my-4'>
+                                        <CardRaceProfile/>
+                                    </section>
+                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
                                         Carreras Asistidas
                                     </h2>
-                                    <CardRaceProfile/>
-                                    <CardRaceProfile/>
-                                    <CardRaceProfile/>
+                                    <section className='my-4'>
+                                        <CardRaceProfile/>
+                                    </section>
+                                    <section className='my-4'>
+                                        <CardRaceProfile/>
+                                    </section>
+                                    <section className='my-4'>
+                                        <CardRaceProfile/>
+                                    </section>
                                 </div>
                                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-8">
+                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
                                         Solicitudes de amistad
                                     </h2>
                                     <CardFriendRequest/>
-                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-8">
+                                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
                                         Amigos
                                     </h2>
                                     <CardUserProfile/>
@@ -156,9 +165,8 @@ export const UserPage = () => {
                             </div>
                             </div>
                         </div>    
-                    </div>
                 </section>
-                <section className="user__card col-span-3 place-self-start  justify-self-center" >
+                <section className="order-first sm:order-last user__card col-span-12 sm:col-span-5 place-self-start justify-self-center" >
                         <section className="user__card-profile">
                             <UserCard className="user__card-content"/>
                         </section>

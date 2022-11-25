@@ -1,0 +1,14 @@
+.card-races__container{
+    height: 230px;
+}
+
+
+.button__orange:hover{
+    box-shadow: #E8844E 0px 0px 16px;
+}
+
+@media (max-width: 767px) {
+    .card-races__container{
+        height: 175px;
+    }
+}

@@ -5,7 +5,7 @@ import {ReactComponent as InstagramIcon} from "../assets/InstagramIcon.svg";
 
 export const Footer = () => {
     return (
-        <footer className="flex flex-col justify-center items-center bg-gray-900">
+        <footer className="flex flex-col justify-center items-center bg-black-700">
             <section className="flex flex-row items-center gap-4">
                 <FitbuddyIcon className="scale-75"/>
                 <h2 className="lg:text-xl italic font-rubik text-gray-50">Fitbuddy</h2>

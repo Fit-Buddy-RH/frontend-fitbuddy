@@ -5,7 +5,7 @@ export const DefaultLayout = (props) => {
     return (
     <div>
         <Navbar/>
-          <main className="bg-gray-900 p-2 sm:p-8 min-h-screen">
+          <main className="bg-black-700 px-2 sm:px-8 min-h-screen">
             <div>{props.children}</div>
           </main>
         <Footer/>
