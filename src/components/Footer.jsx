@@ -1,5 +1,5 @@
 import {ReactComponent as FitbuddyIcon} from "../assets/FitbuddyIcon.svg";
-import {ReactComponent as FacebookIcon} from "../assets/FacebookIcon.svg";
+import {ReactComponent as FacebookIcon} from "../assets/FacebookIconButton.svg";
 import {ReactComponent as TwitterIcon} from "../assets/TwitterIcon.svg";
 import {ReactComponent as InstagramIcon} from "../assets/InstagramIcon.svg";
 
