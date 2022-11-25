@@ -1,24 +1,10 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
 
-import { useGoogleLogin } from "@react-oauth/google";
-
 import { useForm } from "react-hook-form";
-import axios from "axios";
+
 
 export const LoginPage3 = () => {
-  const googleLogin = useGoogleLogin({
-    // flow: "auth-code",
-    onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
-      // const tokens = await axios.post("http://localhost:8080/auth/google", {
-      //   code: codeResponse.code,
-      // });
-
-      // console.log(tokens);
-    },
-    onError: (errorResponse) => console.log(errorResponse),
-  });
 
   const {
     register,
@@ -43,7 +29,6 @@ export const LoginPage3 = () => {
             Se ha enviado un código a tu Whatsapp. Introdúcelo a continuacion
             para validar tu cuenta.
           </h2>
-          <button onClick={() => googleLogin()}>Sign in with Google 🚀 </button>
           <section>
             <form onSubmit={handleSubmit(onSubmit)} className="w-92">
               <label

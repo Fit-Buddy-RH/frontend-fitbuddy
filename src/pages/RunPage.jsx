@@ -1,10 +1,10 @@
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { CardRace } from "../components/CardRace";
 import { CardRaceInfo } from "../components/CardRaceInfo";
-import { CardMap } from "../components/CardMap";
+import { CardMapShow } from "../components/CardMapShow";
 import { CardComments } from "../components/CardComments";
 
-import "./runPage.scss"
+import "./runPage.scss";
 
 export const RunPage = () => {
   return (
@@ -22,7 +22,7 @@ export const RunPage = () => {
           <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
             Ubicación
           </h2>
-          <CardMap />
+          <CardMapShow />
         </section>
         <section className="col-span-12">
           <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">

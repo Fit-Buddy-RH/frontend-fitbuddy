@@ -1,5 +1,5 @@
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { CardMap } from "../components/CardMap";
+import { CardMapShow } from "../components/CardMapShow";
 
 import React, { useState, useEffect } from "react";
 import moment from "moment";
@@ -187,7 +187,7 @@ export const CreateRunPage = () => {
             <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
               Ubicación
             </h2>
-            <CardMap />
+            <CardMapShow />
           </section>
           <section className="col-span-12 flex flex-row justify-center">
             <input
