@@ -5,7 +5,7 @@ import { ReactComponent as GoogleIcon } from
 '../assets/GoogleIconButton.svg'
 import { ReactComponent as FacebookIcon } from '../assets/FacebookIconButton.svg'
 
-export const Login = () => {
+export const LoginPage2 = () => {
   const googleLogin = useGoogleLogin({
     // flow: "auth-code",
     onSuccess: async (codeResponse) => {

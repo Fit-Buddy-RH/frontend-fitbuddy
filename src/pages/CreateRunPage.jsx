@@ -11,15 +11,12 @@ export const CreateRunPage = () => {
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
   const [state, setState] = useState();
-
-  const callback = (e) => {
-    setState(e);
-    console.log(e);
-  };
+  const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
+  // console.log(latLng)
 
   const {
     register,
-    control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -59,6 +56,7 @@ export const CreateRunPage = () => {
                     ? imageURL
                     : "https://images.pexels.com/photos/2168292/pexels-photo-2168292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 }
+                alt=""
               />
             </section>
             <section className="mb-8 flex flex-row justify-center gap-4">
@@ -196,23 +194,15 @@ export const CreateRunPage = () => {
             <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
               Ubicación
             </h2>
-            {/* <Controller
-              control={control}
-              name="coords"
-              rules={{
-                required: true,
-              }}
-              render={({ field: { value, onChange, ...field } }) => (
-                <CardMapShow {...field} value={value} onChange={onChange} />
-              )}
-            /> */}
-            <CardMapShow callback={callback} />
+            <input {...register("coords")} className="hidden" />
+            <CardMapShow latLng={latLng} setLatLng={setLatLng} />
           </section>
           <section className="col-span-12 flex flex-row justify-center">
             <input
               type="submit"
               value="Crear Carrera"
               className="bg-orange-900 text-center text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full mb-8"
+              onClick={() => setValue("coords", latLng)}
             />
           </section>
         </form>
