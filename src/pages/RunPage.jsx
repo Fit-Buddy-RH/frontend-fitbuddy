@@ -4,9 +4,13 @@ import { CardRaceInfo } from "../components/CardRaceInfo";
 import { CardMap } from "../components/CardMap";
 import { CardComments } from "../components/CardComments";
 
+import React, { useState, useEffect } from "react";
+
 import "./runPage.scss";
 
 export const RunPage = () => {
+
+  const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
   let userAccepted = false;
 
   return (
@@ -24,7 +28,7 @@ export const RunPage = () => {
           <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
             Ubicación
           </h2>
-          <CardMap userAccepted={userAccepted}/>
+          <CardMap userAccepted={userAccepted} />
         </section>
         <section className="col-span-12">
           <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">

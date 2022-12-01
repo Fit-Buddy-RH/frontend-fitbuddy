@@ -107,7 +107,7 @@ export const LoginPage5 = () => {
               <section className="col-span-12 flex flex-row w-full justify-center">
                 <input
                   type="submit"
-                  value="Validar cuenta"
+                  value="Crear cuenta"
                   onClick={() => setValue("coords", latLng)}
                   className="bg-violet-900 text-center text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full mb-8"
                 />
@@ -118,4 +118,4 @@ export const LoginPage5 = () => {
       </section>
     </div>
   );
-};
+};        

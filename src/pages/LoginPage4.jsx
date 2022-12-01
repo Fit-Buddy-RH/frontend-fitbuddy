@@ -1,18 +1,69 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
+import {Routes, Route,useLocation, useNavigate} from 'react-router-dom';
 
 import { useForm } from "react-hook-form";
-
+const BaseURL = "http://192.168.68.108:5173";
 
 export const LoginPage4 = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
+
+  const onSubmit = (data) => {
+    console.log(data.code);
+    fetch(`${BaseURL}/check/${"+" + location.state.phone}/${data.code}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.status);
+        if(res.status === "approved"){
+          navigate('/login-5')
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // const verifyCode = () => {
+  //   if (!isValidNumber(checkedNumber)){
+  //     return false;
+  //   }
+
+  //   // Now check if the verfication inserted was the same as
+  //   // the one sent
+  //   fetch(`${BaseURL}/check/${checkedNumber}/${verfication}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       console.log(res);
+  //       if (res.status === 'approved') {
+  //         alert('Phone Verfied');
+  //         // Navigate to another page  once phone is verfied
+  //         navigation.navigate('nextPage');
+  //       } else {
+  //         // Handle other error cases like network connection problems
+  //         alert('Verfication failed try again!!');
+  //         // reset();
+  //         // If not network error like wrong number try again
+  //         setretry(true);
+  //       }
+  //     });
+  // };
 
   return (
     <div className="grid grid-cols-12">
@@ -32,9 +83,9 @@ export const LoginPage4 = () => {
           <section>
             <form onSubmit={handleSubmit(onSubmit)} className="w-92">
               <label
-                htmlFor="phone"
+                htmlFor="code"
                 className={`block text-sm italic font-rubik mb-2 ${
-                  errors.phone ? "text-orange-900" : "text-gray-50"
+                  errors.code ? "text-orange-900" : "text-gray-50"
                 }`}
               >
                 Código:

@@ -1,5 +1,6 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -8,15 +9,63 @@ import "./loginPage3.scss";
 
 import { useForm, Controller } from "react-hook-form";
 
+const BaseURL = "http://192.168.68.108:5173";
+
 export const LoginPage3 = () => {
+
+  const navigate = useNavigate();
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
+
+  const onSubmit = (data) => {
+    console.log(data.phone);
+    fetch(`${BaseURL}/verify/${"+"+data.phone}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        navigate('/login-4',{state:{phone:data.phone}})
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
+  };
+
+  // const sendCode = () => {
+  //   if (!isValidNumber(phone)) {
+  //     alert('Invalid phone number');
+  //     return;
+  //   } else {
+  //     // send verfication code to phone number
+  //     fetch(`${BaseURL}/verify/${phone}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then(res => res.json())
+  //       .then(res => {
+  //         console.log(res);
+  //         if (res.status === 'pending') {
+  //           setCheckedNumber(phone);
+  //           setwaitMessage(false);
+  //         }
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //         alert(err);
+  //       });
+  //   }
+  // };
 
   return (
     <div className="grid grid-cols-12">
@@ -58,7 +107,7 @@ export const LoginPage3 = () => {
                     inputClass="phone__input"
                     buttonClass="phone__button"
                     dropdownClass="phone__dropdown"
-                    searchClass="phone__search"
+                    prefix={"+"}
                     country={"mx"}
                     countryCodeEditable={false}
                   />
