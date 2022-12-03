@@ -4,13 +4,10 @@ import { CardRaceInfo } from "../components/CardRaceInfo";
 import { CardMap } from "../components/CardMap";
 import { CardComments } from "../components/CardComments";
 
-import React, { useState, useEffect } from "react";
-
 import "./runPage.scss";
 
 export const RunPage = () => {
 
-  const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
   let userAccepted = false;
 
   return (

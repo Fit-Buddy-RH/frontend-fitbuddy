@@ -12,8 +12,6 @@ export const Navbar = () => {
         setIsOpen(!isOpen);
     }
 
-    console.log(isOpen)
-
     return (
             <div className="flex z-10 px-6 py-4 sm:px-11 sm:py-6 items-center bg-black-700">
                 <section className="hidden sm:block sm:basis-1/12 self-start">

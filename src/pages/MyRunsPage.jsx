@@ -1,5 +1,6 @@
 import { DefaultLayout } from "../layouts/DefaultLayout"
 import { CardRaces } from "../components/CardRaces"
+import { Link } from "react-router-dom";
 
 export const MyRunsPage = () => {
     return(
@@ -11,7 +12,7 @@ export const MyRunsPage = () => {
                             <button className="button__orange text-xs sm:text-lg text-gray-50 bg-orange-900 font-rubik italic font-bold px-4 py-2 sm:px-8 rounded-full transition">
                                 + CARRERA
                             </button>
-                        </Link>
+                    </Link>
                     </section>
                     <section className="col-span-6 md:col-span-12 lg:col-span-6">
                         <CardRaces/>
