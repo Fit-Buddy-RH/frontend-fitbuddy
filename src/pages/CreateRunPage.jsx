@@ -1,13 +1,15 @@
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { CardMapShow } from "../components/CardMapShow";
-
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 
 import "./createRunPage.scss";
 
 export const CreateRunPage = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
   const [state, setState] = useState();
@@ -21,9 +23,38 @@ export const CreateRunPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
-  console.log(image);
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
+  if (!user) {
+    navigate("/login-1");
+  }
+
+  const onSubmit = (data) => {
+    // console.log(data);
+
+    axios
+      .post(
+        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race",
+        {
+          title: data.title,
+          description: data.description,
+          level: "Intermedio",
+          km: data.km,
+          date: data.date,
+          type: data.type,
+          quantity: 1,
+          location: {
+            type: "Point",
+            coordinates: data.coords,
+          },
+        },
+        { headers: { "Content-Type": "application/json", authorization: user } }
+      )
+      .then((res) => {
+        console.log(res);
+        navigate("/my-runs")
+      });
+  };
 
   useEffect(() => {
     if (image.length < 1) return;
@@ -82,24 +113,24 @@ export const CreateRunPage = () => {
             </section>
             <section className="m-8">
               <label
-                htmlFor="nombre_evento"
+                htmlFor="title"
                 className={`block font-bold text-2xl mb-2  ${
-                  errors.nombre_evento ? "text-orange-900" : "text-gray-50"
+                  errors.title ? "text-orange-900" : "text-gray-50"
                 }`}
               >
                 Nombre del Evento
               </label>
               <input
                 type="text"
-                name="nombre_evento"
+                name="title"
                 placeholder="Nombre del Evento"
-                {...register("nombre_evento", {
+                {...register("title", {
                   required: true,
                   maxLength: 45,
                   min: 1,
                 })}
                 className={`block w-full bg-transparent outline-none rounded-lg border-b-2 py-2 px-4 placeholder-gray-500  ${
-                  errors.nombre_evento
+                  errors.title
                     ? "text-orange-900 border-orange-900"
                     : "text-black-700 border-violet-900"
                 }`}
@@ -107,30 +138,30 @@ export const CreateRunPage = () => {
             </section>
             <section className="m-8">
               <label
-                htmlFor="evento_descripcion"
+                htmlFor="description"
                 className={`block font-bold text-2xl mb-2 ${
-                  errors.evento_descripcion ? "text-orange-900" : "text-gray-50"
+                  errors.description ? "text-orange-900" : "text-gray-50"
                 }`}
               >
                 Descripción del evento
               </label>
               <textarea
-                name="evento_descripcion"
+                name="description"
                 placeholder="Descripción del evento (máximo 180 caracteres)"
-                {...register("evento_descripcion", {
+                {...register("description", {
                   required: true,
                   maxLength: 180,
                   min: 1,
                 })}
                 className={`block w-full bg-transparent outline-none rounded-lg border-b-2 py-2 px-4 placeholder-gray-500  ${
-                  errors.evento_descripcion
+                  errors.description
                     ? "text-orange-900 border-orange-900"
                     : "text-black-700 border-violet-900"
                 }`}
               />
             </section>
           </div>
-          <div className="col-span-12 md:col-span-5 bg-violet-900 rounded-xl p-8 max-h-96">
+          <div className="col-span-12 md:col-span-5 bg-violet-900 rounded-xl p-8 h-96 max-h-100">
             <section className="mb-8">
               <label
                 htmlFor=""
@@ -139,7 +170,7 @@ export const CreateRunPage = () => {
                 Tipo de Carrera
               </label>
               <select
-                {...register("Tipo de Carrera", { required: true })}
+                {...register("type", { required: true })}
                 className="block w-full bg-transparent outline-none rounded-lg py-2 px-4 text-violet-700"
               >
                 <option value="Running">Running</option>
@@ -147,7 +178,7 @@ export const CreateRunPage = () => {
                 <option value="Caminar">Caminar</option>
               </select>
             </section>
-            <section className="mb-8">
+            <section className={`${errors.km ? "pb-0" : "pb-8"}`}>
               <label
                 htmlFor="kilometros"
                 className={`block font-bold text-2xl mb-2 ${
@@ -158,26 +189,28 @@ export const CreateRunPage = () => {
               </label>
               <input
                 type="number"
-                name="kilometros"
+                name="km"
                 placeholder="Kilómetros"
-                {...register("kilometros", { required: true, max: 45, min: 1 })}
-                className={`block w-full bg-transparent rounded-lg outline-none border-b-2 py-2 px-4 placeholder-gray-500  ${
-                  errors.kilometros
+                {...register("km", { required: true, max: 45, min: 1 })}
+                className={`block w-full bg-transparent rounded-lg outline-none border-b-2 py-2 px-4 placeholder-violet-700  ${
+                  errors.km
                     ? "text-orange-900 border-orange-900"
                     : "text-violet-900 border-violet-700"
                 }`}
               />
-              {errors.kilometros && (
+              {errors.km && (
                 <p className="text-orange-900 text-sm mt-2">
                   Tienes que ingresar el número de kilómetros que vas a
                   recorrer. (El máximo es 45 km)
                 </p>
               )}
             </section>
-            <section className="mb-8">
+            <section className="pb-8">
               <label
                 htmlFor=""
-                className="block font-bold text-2xl mb-2 text-gray-50"
+                className={`block font-bold text-2xl mb-2 ${
+                  errors.date ? "text-orange-900" : "text-gray-50"
+                } `}
               >
                 Fecha y Hora
               </label>
@@ -185,8 +218,12 @@ export const CreateRunPage = () => {
                 type="datetime-local"
                 max={moment().format("MMMM Do YYYY, h:mm:ss a")}
                 placeholder="Fecha y Hora"
-                className="block w-full bg-transparent rounded-lg outline-none py-2 px-4 text-violet-700"
-                {...register("fecha_y_hora", { required: true })}
+                className={`block w-full bg-transparent rounded-lg outline-none py-2 px-4 ${
+                  errors.date
+                    ? "text-orange-900 border-orange-900"
+                    : "text-violet-900 border-violet-700"
+                }`}
+                {...register("date", { required: true })}
               />
             </section>
           </div>

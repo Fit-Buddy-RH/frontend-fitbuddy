@@ -11,14 +11,12 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoiZW5kZnJvc3QiLCJhIjoiY2xhOGVjMjN6MDJ3YzQwcGU1czlwMzh6NyJ9.ODZjPuPaXT5SFKQCqqvHBQ";
 
 export const CardMap = (props) => {
-  const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
   //   let userAccepted = true;
-  console.log(props.userAccepted);
   return (
     <Map
       initialViewState={{
-        longitude: -99.18670587646949,
-        latitude: 19.42591581551342,
+        longitude: props.mapCoords[0],
+        latitude: props.mapCoords[1],
         zoom: 14,
         maxZoom: 14,
         minZoom: 10,
@@ -28,17 +26,12 @@ export const CardMap = (props) => {
       mapboxAccessToken="pk.eyJ1IjoiZW5kZnJvc3QiLCJhIjoiY2xhOGVjMjN6MDJ3YzQwcGU1czlwMzh6NyJ9.ODZjPuPaXT5SFKQCqqvHBQ"
     >
       <Marker
-        longitude={latLng[0]}
-        latitude={latLng[1]}
+        longitude={props.mapCoords[0]}
+        latitude={props.mapCoords[1]}
         anchor="center"
         pitchAlignment="auto"
         draggable="false"
       >
-        <GeolocateControl
-          maxZoom={10}
-          showAccuracyCircle={false}
-          showUserLocation={false}
-        />
         { (props.userAccepted)  ? <LocationIcon /> : <AreaIcon scale={3} />}
       </Marker>
     </Map>

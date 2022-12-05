@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { LandingPage } from "./pages/LandingPage";
 import { MyRunsPage } from "./pages/MyRunsPage";
+
 import { RunPage } from "./pages/RunPage";
 import { RunsPage } from "./pages/RunsPage";
 import { UserPage } from "./pages/UserPage";
@@ -31,9 +32,9 @@ function App() {
         <Route path="/runs" element={<RunsPage />} />
 
         <Route path="/my-runs" element={<MyRunsPage />} />
-        <Route path="/run" element={<RunPage />} />
+        <Route path="/run/:id" element={<RunPage />} />
         <Route path="/post" element={<CreateRunPage />} />
-        <Route path="/user" element={<UserPage />} />
+        <Route path="/user/:id" element={<UserPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
 
 

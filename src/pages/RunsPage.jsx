@@ -3,15 +3,32 @@ import { CardRaces } from "../components/CardRaces";
 import { Link } from "react-router-dom";
 import useGeolocation from "react-hook-geolocation";
 import React, { useState, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./runsPage.scss";
 
 export const RunsPage = () => {
   const geolocation = useGeolocation();
+  const navigate = useNavigate();
+  const [nearRaces, setNearRaces] = useState();
+  const [userAvatar, setUserAvatar] = useState();
 
-  //   setLatLng([geolocation.longitude,geolocation.latitude])
-  const userCoordiates = [geolocation.latitude, geolocation.longitude];
-  console.log(userCoordiates);
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) {
+    navigate("/login-1");
+  }
 
+  useEffect(() => {
+    axios
+      .get(
+        `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race?long=${geolocation.longitude}&&${geolocation.latitude}&&km=10`,
+        { headers: { "Content-Type": "application/json", authorization: user } }
+      )
+      .then((res) => {
+        console.log(res.data.data.races);
+        setNearRaces(res.data.data.races);
+      });
+  }, [geolocation]);
 
   return (
     <DefaultLayout>
@@ -26,7 +43,23 @@ export const RunsPage = () => {
             </button>
           </Link>
         </section>
-        <section className="col-span-6 md:col-span-12 lg:col-span-6">
+        {nearRaces &&
+          nearRaces.map((race) => {
+            return (
+              <section
+                key={race._id}
+                className="col-span-6 md:col-span-12 lg:col-span-6"
+              >
+                <CardRaces
+                  title={race.title}
+                  description={race.description}
+                  avatar={race.user.image}
+                  id={race._id}
+                />
+              </section>
+            );
+          })}
+        {/* <section className="col-span-6 md:col-span-12 lg:col-span-6">
           <CardRaces />
         </section>
         <section className="col-span-6 md:col-span-6 lg:col-span-3">
@@ -70,7 +103,7 @@ export const RunsPage = () => {
         </section>
         <section className="col-span-6 md:col-span-6 lg:col-span-3">
           <CardRaces />
-        </section>
+        </section> */}
       </div>
     </DefaultLayout>
   );

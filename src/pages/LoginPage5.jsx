@@ -1,19 +1,42 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
-import { CardMapLogin } from "../components/CardMapLogin";
-
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import {Routes, Route,useLocation, useNavigate} from 'react-router-dom';
 
 export const LoginPage5 = () => {
-  const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
+  if (!user) {
+    navigate("/login-1");
+  }
+
+  const onSubmit = (data) => {
+    console.log(data);
+    axios.patch(
+      "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user",
+      data,
+      { headers: { 'Content-Type': 'application/json', 'authorization': user }, }
+    )
+    .then((res) => {
+      console.log(res.data.success);
+      if (res.data.success === true) {
+        navigate("/runs")
+      }
+    })
+  }
+
   console.log(errors);
+
+
 
   return (
     <div className="grid grid-cols-12">
@@ -35,19 +58,6 @@ export const LoginPage5 = () => {
               onSubmit={handleSubmit(onSubmit)}
               className="w-92 flex flex-col"
             >
-              <label
-                htmlFor="location"
-                className={`block text-sm italic font-rubik my-2 ${
-                  errors.location ? "text-orange-900" : "text-gray-50"
-                }`}
-              >
-                Selecciona tu ubicación en el mapa para buscar carreras cercanas
-                a ti:
-              </label>
-              <section>
-                <input {...register("coords")} className="hidden" />
-                <CardMapLogin latLng={latLng} setLatLng={setLatLng}/>
-              </section>
               <label
                 htmlFor="level"
                 className={`block text-sm italic font-rubik my-2 ${
@@ -73,7 +83,7 @@ export const LoginPage5 = () => {
                   {...register("level", { required: true })}
                   type="radio"
                   id="principiante"
-                  value="principiante"
+                  value="Principiante"
                 />
               </section>
               <section className="my-4 flex flex-row justify-around">
@@ -87,7 +97,7 @@ export const LoginPage5 = () => {
                   {...register("level", { required: true })}
                   type="radio"
                   id="intermedio"
-                  value="intermedio"
+                  value="Intermedio"
                 />
               </section>
               <section className="my-4 flex flex-row justify-around">
@@ -101,14 +111,13 @@ export const LoginPage5 = () => {
                   {...register("level", { required: true })}
                   type="radio"
                   id="experto"
-                  value="experto"
+                  value="Experto"
                 />
               </section>
               <section className="col-span-12 flex flex-row w-full justify-center">
                 <input
                   type="submit"
                   value="Crear cuenta"
-                  onClick={() => setValue("coords", latLng)}
                   className="bg-violet-900 text-center text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full mb-8"
                 />
               </section>
@@ -118,4 +127,4 @@ export const LoginPage5 = () => {
       </section>
     </div>
   );
-};        
+};

@@ -1,9 +1,10 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import React, { useState, useEffect } from "react";
 import {Routes, Route,useLocation, useNavigate} from 'react-router-dom';
+import axios from "axios";
 
 import { useForm } from "react-hook-form";
-const BaseURL = "http://192.168.68.108:5173";
+const BaseURL = "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/twilio";
 
 export const LoginPage4 = () => {
   const location = useLocation();
@@ -15,6 +16,12 @@ export const LoginPage4 = () => {
     formState: { errors },
   } = useForm();
 
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user)
+  if (!user) {
+    navigate('/login-1')
+  }
+
   const onSubmit = (data) => {
     console.log(data.code);
     fetch(`${BaseURL}/check/${"+" + location.state.phone}/${data.code}`, {
@@ -25,8 +32,14 @@ export const LoginPage4 = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.status);
-        if(res.status === "approved"){
+        console.log(res.verification.status);
+        if(res.verification.status === "approved"){
+          const userVerified = {"isVerified" : true};
+          axios.patch(
+          "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user",
+          userVerified,
+          { headers: { 'Content-Type': 'application/json', 'authorization': user }, }
+        )
           navigate('/login-5')
         }
       })

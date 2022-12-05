@@ -2,9 +2,11 @@ import { ReactComponent as FriendsIcon } from "../assets/FriendsIcon.svg"
 import { ReactComponent as LevelIcon } from "../assets/LevelIcon.svg"
 import { ReactComponent as RunIcon } from "../assets/RunIcon.svg"
 import { ReactComponent as EditRunIcon } from "../assets/EditRunIcon.svg"
+import axios from "axios"
 
 
 export const CardUserProfile = () => {
+
     return (
         <div className="card-race-friend__container bg-black-600 transition rounded-xl flex flex-row mb-8" >
         <img 

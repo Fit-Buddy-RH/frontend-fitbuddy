@@ -9,7 +9,7 @@ import "./loginPage3.scss";
 
 import { useForm, Controller } from "react-hook-form";
 
-const BaseURL = "http://192.168.68.108:5173";
+const BaseURL = "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/twilio";
 
 export const LoginPage3 = () => {
 
@@ -20,6 +20,12 @@ export const LoginPage3 = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user)
+  if (!user) {
+    navigate('/login-1')
+  }
 
   const onSubmit = (data) => {
     console.log(data.phone);

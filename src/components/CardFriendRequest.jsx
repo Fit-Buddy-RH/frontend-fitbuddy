@@ -3,7 +3,8 @@ import { ReactComponent as LevelIcon } from "../assets/LevelIcon.svg"
 import { ReactComponent as RunIcon } from "../assets/RunIcon.svg"
 import { ReactComponent as EditRunIcon } from "../assets/EditRunIcon.svg"
 
-export const CardFriendRequest = () => {
+export const CardFriendRequest = (params) => {
+    console.log(params.name)
     return (
         <div className="card-race__container bg-black-600 transition rounded-xl flex flex-row mb-8" >
         <img 
@@ -13,11 +14,11 @@ export const CardFriendRequest = () => {
         />
         <div className="pl-2 flex flex-col sm:flex-row w-full">
                 <div className="py-2 px-4 w-full">
-                    <h2 className=" text-gray-50 text-xl font-bold italic ">John</h2>
+                    <h2 className=" text-gray-50 text-xl font-bold italic ">{params.name}</h2>
                     <section className="grid grid-cols-2 grid-rows-2">
                         <section className="relative right-4 flex flex-col  items-center">
                             <FriendsIcon className="scale-m -m-4"/>
-                            <p className=" text-gray-50 text-center text-xs">5 amigos</p>
+                            <p className=" text-gray-50 text-center text-xs">{params.friends} amigos</p>
                         </section>
                         <section className="relative flex flex-col items-center">
                             <RunIcon className="scale-m -m-4"/>
@@ -25,11 +26,11 @@ export const CardFriendRequest = () => {
                         </section>
                         <section className="relative right-4 flex flex-col items-center">
                             <EditRunIcon className="scale-m -m-4"/>
-                            <p className=" text-gray-50 text-center text-xs">1 carrera creada</p>
+                            <p className=" text-gray-50 text-center text-xs">{params.created} carrera creada</p>
                         </section>
                         <section className="relative flex flex-col items-center">
                             <LevelIcon className="scale-m -m-4"/>
-                            <p className=" text-gray-50 text-center text-xs">Principiante</p>
+                            <p className=" text-gray-50 text-center text-xs">{params.level}</p>
                         </section>
                     </section>
                 </div>
