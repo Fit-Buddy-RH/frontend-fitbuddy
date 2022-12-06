@@ -10,7 +10,7 @@ import { set } from "react-hook-form";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZW5kZnJvc3QiLCJhIjoiY2xhOGVjMjN6MDJ3YzQwcGU1czlwMzh6NyJ9.ODZjPuPaXT5SFKQCqqvHBQ";
 
-export const CardMapShow = ({ latLng, setLatLng }) => {
+export const CardMapLogin = ({ latLng, setLatLng }) => {
 
   const [lng, lat] = latLng
 
@@ -23,7 +23,7 @@ export const CardMapShow = ({ latLng, setLatLng }) => {
         maxZoom: 14,
         minZoom:10
       }}
-      style={{ height: 400 }}
+      style={{ height: 200 }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken="pk.eyJ1IjoiZW5kZnJvc3QiLCJhIjoiY2xhOGVjMjN6MDJ3YzQwcGU1czlwMzh6NyJ9.ODZjPuPaXT5SFKQCqqvHBQ"
     >

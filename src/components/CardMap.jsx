@@ -10,43 +10,29 @@ import { set } from "react-hook-form";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZW5kZnJvc3QiLCJhIjoiY2xhOGVjMjN6MDJ3YzQwcGU1czlwMzh6NyJ9.ODZjPuPaXT5SFKQCqqvHBQ";
 
-export const CardMapShow = ({ latLng, setLatLng }) => {
-
-  const [lng, lat] = latLng
-
+export const CardMap = (props) => {
+  //   let userAccepted = true;
   return (
     <Map
       initialViewState={{
-        longitude: -99.18670587646949,
-        latitude: 19.42591581551342,
-        zoom:14,
+        longitude: props.mapCoords[0],
+        latitude: props.mapCoords[1],
+        zoom: 14,
         maxZoom: 14,
-        minZoom:10
+        minZoom: 10,
       }}
       style={{ height: 400 }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken="pk.eyJ1IjoiZW5kZnJvc3QiLCJhIjoiY2xhOGVjMjN6MDJ3YzQwcGU1czlwMzh6NyJ9.ODZjPuPaXT5SFKQCqqvHBQ"
     >
       <Marker
-        longitude={lng}
-        latitude={lat}
+        longitude={props.mapCoords[0]}
+        latitude={props.mapCoords[1]}
         anchor="center"
         pitchAlignment="auto"
-        draggable="true"
-        onDragEnd={(e) => {
-          setLatLng([e.lngLat.lng, e.lngLat.lat]);
-
-        }}
+        draggable="false"
       >
-        <GeolocateControl
-          maxZoom={10}
-          showAccuracyCircle={false}
-          showUserLocation={false}
-          onGeolocate={(e) => {
-            setLatLng([e.coords.longitude, e.coords.latitude]);            
-          }}
-        />
-        <LocationIcon scale={2} />
+        { (props.userAccepted)  ? <LocationIcon /> : <AreaIcon scale={3} />}
       </Marker>
     </Map>
   );

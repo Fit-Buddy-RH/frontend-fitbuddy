@@ -6,20 +6,16 @@ import { UserCard } from "../components/UserCard";
 import { CardRaceProfile } from "../components/CardRaceProfile";
 import { CardUserProfile } from "../components/CardUserProfile";
 import { CardFriendRequest } from "../components/CardFriendRequest";
+
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 import "./userPage.scss";
 
-export const UserPage = () => {
-  const [userLogged, setUserLogged] = useState();
-  const [friendRequests, setFriendRequests] = useState();
+export const MyProfilePage = () => {
   const [openTab, setOpenTab] = useState(1);
-  const [friend, setFriend] = useState(false);
-  const [userValues, setUserValues] = useState();
-  const params = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   if (!user) {
     navigate("/login-1");
   }
@@ -27,26 +23,15 @@ export const UserPage = () => {
   useEffect(() => {
     axios
       .get(
-        `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user?idUser=${params.id}`,
+        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user?me=true",
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {
-        setUserValues(res.data.data.users);
+        console.log(res.data.data.users)
       });
+  },[])
 
-    axios
-      .get(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/friendRequest",
-        {
-          headers: { "Content-Type": "application/json", authorization: user },
-        }
-      )
-      .then((res) => {
-        console.log(res.data.data.requests);
-        setFriendRequests(res.data.data.requests);
-      });
-
-    setFriend(true);
+  useEffect(() => {
     let calculateAngle = function (e, item, parent) {
       let dropShadowColor = `rgba(0, 0, 0, 0.3)`;
       if (parent.getAttribute("data-filter-color") !== null) {
@@ -107,23 +92,6 @@ export const UserPage = () => {
   return (
     <DefaultLayout>
       <div className="grid grid-cols-12 gap-4 place-items-center mx-0 xl:mx-48 2xl:mx-96">
-        {!friend && (
-          <section className="user__card col-start-4 col-span-6 mb-16 ">
-            <section className="user__card-profile">
-              {userValues && (
-                <UserCard
-                  id={userValues._id}
-                  image={userValues.image}
-                  fullname={userValues.fullname}
-                  friends={userValues.friends.length}
-                  level={userValues.level}
-                  created={userValues.racesCreated.length}
-                  className="user__card-content"
-                />
-              )}
-            </section>
-          </section>
-        )}
         <section className="col-span-12 sm:col-span-7 flex flex-col place-self-start  w-full h-min-screen text-gray-50">
           <ul
             className="flex list-none flex-row justify-center items-center place-self-center sm:place-self-start mb-4 bg-gray-800 rounded-full tabs__container"
@@ -201,25 +169,11 @@ export const UserPage = () => {
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
                     Solicitudes de amistad
                   </h2>
-                  {friendRequests &&
-                    friendRequests.map((request) => {
-                      console.log(request.userRequester);
-                      return (
-                        <CardFriendRequest
-                          key={request.userRequester._id}
-                          id={request.userRequester._id}
-                          friends={request.userRequester.friends.length}
-                          level={request.userRequester.level}
-                          created={request.userRequester.racesCreated.length}
-                          image={request.userRequester.image}
-                          name={request.userRequester.fullname}
-                        />
-                      );
-                    })}
+                  <CardFriendRequest />
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
                     Amigos
                   </h2>
-                  {/* <CardUserProfile /> */}
+                  <CardUserProfile />
                 </div>
               </div>
             </div>
@@ -227,17 +181,7 @@ export const UserPage = () => {
         </section>
         <section className="order-first sm:order-last user__card col-span-12 sm:col-span-5 place-self-start justify-self-center">
           <section className="user__card-profile">
-            {userValues && (
-              <UserCard
-                id={userValues._id}
-                image={userValues.image}
-                fullname={userValues.fullname}
-                friends={userValues.friends.length}
-                level={userValues.level}
-                created={userValues.racesCreated.length}
-                className="user__card-content"
-              />
-            )}
+            <UserCard className="user__card-content" />
           </section>
         </section>
       </div>

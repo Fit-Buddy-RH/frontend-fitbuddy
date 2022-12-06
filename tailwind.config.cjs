@@ -11,6 +11,7 @@ module.exports = {
       },
       height: {
         '860': '860px',
+        '100': '28rem'
       },
       backgroundImage: {
         'my_bg_image' : "url('./src/assets/LandingImage.png')",
