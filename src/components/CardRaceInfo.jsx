@@ -10,13 +10,17 @@ export const CardRaceInfo = (params) => {
   const urlParams = useParams();
   const navigate = useNavigate();
   const [userId, setUserId] = useState();
+  const [runUserId, setRunUserId] = useState();
 
-  console.log(urlParams);
+  console.log(params);
+
+    // setRunUserId();
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     navigate("/login-1");
   }
+
 
   useEffect(() => {
     axios
@@ -40,7 +44,6 @@ export const CardRaceInfo = (params) => {
       });
   };
 
-  console.log(params.user._id);
   return (
     <div className="card-race-info__container bg-violet-900  transition rounded-xl flex flex-col justify-center">
       <div className="relative my-4 md:my-0 md:ml-4 ml-8 overflow-clip">
