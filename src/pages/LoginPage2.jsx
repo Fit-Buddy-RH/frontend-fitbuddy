@@ -30,27 +30,10 @@ export const LoginPage2 = () => {
           </div>
           <div className="m-4 w-48 text-gray-50 text-center text-[14px]">
           <p>
-            Para crear una cuenta puedes iniciar sesión con Facebook o Google.</p>
+            Para crear una cuenta puedes iniciar sesión con Google.</p>
            <p>Te pediremos tu número de teléfono para validar que eres una persona real.</p> 
           </div>
-          <button className="flex 
-          items-center
-          rounded-full
-          text-center 
-          h-[45px]
-          text-base
-          italic
-          font-bold italic
-          text-gray-50 
-          w-[150px]
-          bg-violet-900 my-4
-          filter-none
-          truncate
-          overflow-auto
-          md:w-[185px]
-          lg:w-40">
-            <FacebookIcon className="m-2 md:m-4"/>
-            Facebook</button>
+          
           <button className="flex 
           items-center
           rounded-full

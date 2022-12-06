@@ -38,11 +38,11 @@ export const LandingPage = () => {
         <section className="flex w-screen flex-row h-860 justify-around items-center md:py-24 xl:px-24 2xl:px-80">
           <div className="flex flex-col w-4/12 gap-12">
             <h1 className="italic text-center sm:text-left text-5xl font-rubik text-violet-900 font-bold">
-              FITBUDDY
+                CONECTA
             </h1>
             <h2 className="text-center sm:text-left text-xl 2xl:w-9/12 font-rubik text-gray-50">
-              ÚNETE PARA CONOCER, SOCIALIZAR Y PRACTICAR CON TU COMUNIDAD RUNNER
-              LOCAL
+              Conecta con corredores cercanos y crea tu propio evento deportivo
+              con fitbuddy
             </h2>
             <button className="text-gray-50 transition font-rubik font-bold w-6/12 italic bg-violet-900 hover:bg-violet-700 hover:shadow-md hover:shadow-violet-900 py-4 rounded-full">
               ¡ ÚNETE A FITBUDDY!
@@ -54,11 +54,10 @@ export const LandingPage = () => {
           <JoggingIcon className="scale-125" />
           <div className="flex flex-col w-4/12 gap-12">
             <h1 className="italic text-center sm:text-left text-5xl font-rubik text-violet-900 font-bold">
-              FITBUDDY
+              CONOCE
             </h1>
             <h2 className="text-center sm:text-left text-xl 2xl:w-9/12 font-rubik text-black-700">
-              ÚNETE PARA CONOCER, SOCIALIZAR Y PRACTICAR CON TU COMUNIDAD RUNNER
-              LOCAL
+              Mantente en forma al compartir experiencias con amigos y conocidos
             </h2>
             <button className="text-gray-50 transition font-rubik font-bold w-6/12 italic bg-violet-900 hover:bg-violet-700 hover:shadow-md hover:shadow-violet-900 py-4 rounded-full">
               ¡ ÚNETE A FITBUDDY!
@@ -68,11 +67,10 @@ export const LandingPage = () => {
         <section className="flex w-screen flex-row h-860 justify-around items-center md:py-24 xl:px-24 2xl:px-80">
           <div className="flex flex-col w-4/12 gap-12">
             <h1 className="italic text-center sm:text-left text-5xl font-rubik text-violet-900 font-bold">
-              FITBUDDY
+              ENCUENTRA
             </h1>
             <h2 className="text-center sm:text-left text-xl 2xl:w-9/12 font-rubik text-gray-50">
-              ÚNETE PARA CONOCER, SOCIALIZAR Y PRACTICAR CON TU COMUNIDAD RUNNER
-              LOCAL
+              Encuentra el grupo de running ideal para ti sin salir de casa
             </h2>
             <button className="text-gray-50 transition font-rubik font-bold w-6/12 italic bg-violet-900 hover:bg-violet-700 hover:shadow-md hover:shadow-violet-900 py-4 rounded-full">
               ¡ ÚNETE A FITBUDDY!
