@@ -5,7 +5,7 @@ import { ReactComponent as GoogleIcon } from
 '../assets/GoogleIconButton.svg'
 import { ReactComponent as FacebookIcon } from '../assets/FacebookIconButton.svg'
 
-export const LoginMobile = () => {
+export const LoginPage2 = () => {
   const googleLogin = useGoogleLogin({
     // flow: "auth-code",
     onSuccess: async (codeResponse) => {
@@ -28,28 +28,12 @@ export const LoginMobile = () => {
             <FitbuddyIcon />
             <h1 className="p-2 text-gray-50 font-rubik text-2xl italic font-bold">Fitbuddy</h1>
           </div>
-          <div className="mt-4 w-48 text-gray-50 text-center">
-            Puedes iniciar sesión con alguno de los
-            siguientes servicios:
+          <div className="m-4 w-48 text-gray-50 text-center text-[14px]">
+          <p>
+            Para crear una cuenta puedes iniciar sesión con Google.</p>
+           <p>Te pediremos tu número de teléfono para validar que eres una persona real.</p> 
           </div>
-          <button className="flex 
-          items-center
-          rounded-full
-          text-center 
-          h-[45px]
-          text-base
-          italic
-          font-bold italic
-          text-gray-50 
-          w-[150px]
-          bg-violet-900 my-4
-          filter-none
-          truncate
-          overflow-auto
-          md:w-[185px]
-          lg:w-40">
-            <FacebookIcon className="m-2 md:m-4"/>
-            Facebook</button>
+          
           <button className="flex 
           items-center
           rounded-full
