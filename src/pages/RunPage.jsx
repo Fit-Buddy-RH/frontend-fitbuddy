@@ -34,7 +34,6 @@ export const RunPage = () => {
 
   let userAccepted = false;
 
-  console.log(userValues);
 
   return (
     <DefaultLayout>

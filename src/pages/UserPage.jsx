@@ -33,7 +33,6 @@ export const UserPage = () => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
-        console.log(res.data.data.users);
         setUserRacesCreated(res.data.data.users.racesCreated);
         setUserFriends(res.data.data.users.friends);
         setUserValues(res.data.data.users);
@@ -194,13 +193,6 @@ export const UserPage = () => {
                       Aún no creaste ninguna carrera. ¿Quieres empezar con una?
                     </h2>
                   )}
-
-                  {/* <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
-                    Carreras Actuales
-                  </h2>
-                  <section className="my-4">
-                    <CardRaceProfile />
-                  </section> */}
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
                     Carreras Asistidas
                   </h2>

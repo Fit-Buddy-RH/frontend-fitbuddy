@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export const CardRace = (params) => {
-    console.log(params)
   return (
     <div className="card-race__container bg-black-600 transition rounded-xl flex flex-col">
       <img
