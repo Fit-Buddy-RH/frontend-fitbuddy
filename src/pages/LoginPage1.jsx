@@ -1,6 +1,6 @@
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import axios from "axios";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import { ReactComponent as GoogleIcon } from "../assets/GoogleIconButton.svg";
@@ -23,13 +23,13 @@ export const LoginPage1 = () => {
           if (response.data.message === "Usuario loggeado con éxito") {
             console.log("uwu");
             localStorage.setItem("user", JSON.stringify(response.data.token));
-            navigate('/runs')
+            navigate("/runs");
           } else if (response.data.message === "Usuario creado con éxito") {
             console.log("uwu2");
             localStorage.setItem("user", JSON.stringify(response.data.token));
-            navigate('/login-3')
+            navigate("/login-3");
           }
-        })
+        });
     },
     onError: (errorResponse) => console.log(errorResponse),
   });
@@ -44,13 +44,14 @@ export const LoginPage1 = () => {
               Fitbuddy
             </h1>
           </div>
-          <div className="mt-4 w-48 text-gray-50 text-center">
+          <div className="mt-8 w-48 text-gray-50 text-center">
             Puedes iniciar sesión con alguno de los siguientes servicios:
           </div>
           <button
             className="flex 
           items-center
           rounded-full
+          py-8
           text-center 
           h-[45px]
           text-base
@@ -58,28 +59,7 @@ export const LoginPage1 = () => {
           font-bold italic
           text-gray-50 
           w-[150px]
-          bg-violet-900 my-4
-          filter-none
-          truncate
-          overflow-auto
-          md:w-[185px]
-          lg:w-40"
-          >
-            <FacebookIcon className="m-2 md:m-4" />
-            Facebook
-          </button>
-          <button
-            className="flex 
-          items-center
-          rounded-full
-          text-center 
-          h-[45px]
-          text-base
-          italic
-          font-bold italic
-          text-gray-50 
-          w-[150px]
-          bg-violet-900 my-4
+          bg-violet-900 my-8
           filter-none
           truncate
           overflow-auto
@@ -89,16 +69,10 @@ export const LoginPage1 = () => {
               googleLogin();
             }}
           >
-            <GoogleIcon className="m-2 md:m-4" />
+          <GoogleIcon className="m-2 md:m-4" />
             Google
           </button>
 
-          <div className="mt-2">
-            <p className="text-gray-50 text-xs">
-              ¿No tienes una cuenta?{" "}
-              <span className="text-violet-900 text-xs">Registrate</span>
-            </p>
-          </div>
         </div>
       </body>
     </>
