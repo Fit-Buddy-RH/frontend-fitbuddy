@@ -44,13 +44,14 @@ export const LoginPage1 = () => {
               Fitbuddy
             </h1>
           </div>
-          <div className="mt-4 w-48 text-gray-50 text-center">
+          <div className="mt-8 w-48 text-gray-50 text-center">
             Puedes iniciar sesión con alguno de los siguientes servicios:
           </div>
           <button
             className="flex 
           items-center
           rounded-full
+          py-8
           text-center 
           h-[45px]
           text-base
@@ -58,8 +59,7 @@ export const LoginPage1 = () => {
           font-bold italic
           text-gray-50 
           w-[150px]
-          py-2
-          bg-violet-900 my-4
+          bg-violet-900 my-8
           filter-none
           truncate
           overflow-auto
@@ -69,16 +69,10 @@ export const LoginPage1 = () => {
               googleLogin();
             }}
           >
-            <GoogleIcon className="m-2 md:m-4" />
+          <GoogleIcon className="m-2 md:m-4" />
             Google
           </button>
 
-          <div className="mt-2">
-            <p className="text-gray-50 text-xs">
-              ¿No tienes una cuenta?{" "}
-              <span className="text-violet-900 text-xs">Registrate</span>
-            </p>
-          </div>
         </div>
       </body>
     </>
