@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       scale: {
         'm': '0.35',
+        'p': '0.50'
       },
       height: {
         '860': '860px',
