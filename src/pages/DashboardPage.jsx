@@ -5,14 +5,14 @@ import { UserCard } from "../components/UserCard";
 
 import { CardRaceSent } from "../components/CardRaceSent";
 import { CardUserProfile } from "../components/CardUserProfile";
-import { CardFriendRequest } from "../components/CardFriendRequest";
+import { CardRaceRequest } from "../components/CardRaceRequest";
 import axios from "axios";
 
 import "./dashboardPage.scss";
 
 export const DashboardPage = () => {
   const [userRaces, setUserRaces] = useState([]);
-  let racesWithRequest = []
+  const [requests, setRequests] = useState([]);
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
@@ -21,35 +21,17 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     axios
-      .get("https://api.fitbuddy.site/race?me=true", {
+      .get("https://api.fitbuddy.site/user?raceRequest=true", {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
-        res.data.data.racesCreated.map((element, index) => {
-          axios.get(`https://api.fitbuddy.site/raceRequest/${element._id}`, {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: user,
-            },
-          })
-          .then((res) => {
-            if(res.data.data.requests.length > 0) {
-              res.data.data.requests.map((request) => {
-                console.log(request)
-                racesWithRequest.push(request.race)
-                // setRacesWithRequest([...racesWithRequest, {race: request.race}])
-              })
-              // setUserRaces(res.data.data.requests.user)
-              // setRacesWithRequest(res.data.data.requests)
-            }
-          })
-        })
+        console.log(res.data.data.raceRequests)
+        setRequests(res.data.data.raceRequests);
       });
   }, []);
 
-  const [openTab, setOpenTab] = useState(1);
 
-  console.log(racesWithRequest)
+  const [openTab, setOpenTab] = useState(1);
 
   return (
     <DefaultLayout>
@@ -110,26 +92,30 @@ export const DashboardPage = () => {
                     id="link1"
                   >
                     <CardRaceSent />
-                    <CardRaceSent />
-                    <CardRaceSent />
-                    <CardRaceSent />
-                    <CardRaceSent />
+
                   </div>
                   <div
                     className={openTab === 2 ? "block" : "hidden"}
                     id="link2"
                   >
-                    {/* {);
+                    {requests && requests.length > 0 ? (
+                      requests.map((request) => {
+                        console.log(request);
                         return (
-                          <section>
+                          <section key={request._id}>
                             <h2 className="text-gray-50 font-rubik font-bold italic mb-4">
-                              {race.title}
+                              {request.race.title}
                             </h2>
-                            <p className="text-gray-50 font-rubik italic mb-4">
-                              {race.description}
-                            </p>
-                            {race._id}
-                            <CardFriendRequest />
+                            <p className="text-gray-50 font-rubik italic mb-4"></p>
+
+                            <CardRaceRequest
+                              name={request.user.fullname}
+                              friends={request.user.friends.length}
+                              level={request.user.level}
+                              created={request.user.racesCreated.length}
+                              image={request.user.image}
+                              requestId={request._id}
+                            />
                           </section>
                         );
                       })
@@ -140,7 +126,7 @@ export const DashboardPage = () => {
                           una?
                         </h2>
                       </section>
-                    )} */}
+                    )}
                   </div>
                 </div>
               </div>

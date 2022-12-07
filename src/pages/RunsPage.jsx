@@ -25,7 +25,6 @@ export const RunsPage = () => {
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {
-        console.log(res.data.data.races);
         setNearRaces(res.data.data.races);
       });
   }, [geolocation]);

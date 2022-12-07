@@ -1,6 +1,7 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import { ReactComponent as DropdownIcon } from "../assets/DropdownIcon.svg";
 import { ReactComponent as BellIcon } from "../assets/BellIcon.svg";
+import { ReactComponent as LogoutIcon } from "../assets/Logout.svg";
 import { ReactComponent as ProfileIcon } from "../assets/ProfileIcon.svg";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -101,7 +102,7 @@ export const Navbar = () => {
                   className="text-gray-50 font-rubik items-center justify-center sm:text-lg lg:block transition hover:scale-110"
                 >
                   <section className="grid grid-cols-3 items-center">
-                    <ProfileIcon className="scale-75 col-span-1" />
+                    <LogoutIcon className="scale-75 col-span-1" />
                     <p className="col-span-2">Cerrar Sesión</p>
                   </section>
                 </button>

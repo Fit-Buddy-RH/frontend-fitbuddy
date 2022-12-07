@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export const CardRaceProfile = (params) => {
-  console.log(params);
   return (
     <div>
       <Link to={`/run/${params.id}`} className="card-race-profile__container bg-black-600 transition rounded-xl flex flex-row">
