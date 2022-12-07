@@ -49,9 +49,11 @@ export const Navbar = () => {
           </Link>
         </section>
         <section className="basis-11/12 flex flex-row md:basis-9/12 xl:basis-10/12 gap-8">
-          <h2 className="text-gray-50 sm:hidden font-semibold italic font-rubik text-2xl">
-            Fitbuddy
-          </h2>
+          <Link to="/runs">
+            <h2 className="text-gray-50 sm:hidden font-semibold italic font-rubik text-2xl">
+              Fitbuddy
+            </h2>
+          </Link>
           <Link to="/runs" className="self-center">
             <button className="text-gray-50 font-rubik hidden sm:text-lg sm:block sm:pl-4 italic transition hover:scale-110">
               Carreras
@@ -112,7 +114,7 @@ export const Navbar = () => {
         </section>
       </div>
 
-      <div className="flex flex-row gap-8 my-4 md:hidden">
+      <div className={location.pathname === "/runs" || "/my-runs" ? "flex flex-row gap-8 my-4 md:hidden" : "hidden"}>
         <Link to="/runs">
           <button
             className={

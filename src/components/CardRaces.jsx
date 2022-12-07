@@ -10,7 +10,7 @@ export const CardRaces = (props) => {
           className="object-cover rounded-t-xl h-3/5"
         />
         <section className="relative py-4 max-h-2/5">
-          <h2 className="px-4 text-gray-50 sm:text-xl font-bold italic">
+          <h2 className="px-4 text-gray-50 sm:text-xl font-bold truncate italic">
             {props.title}
           </h2>
           <p className="px-4 text-gray-50 text-sm sm:text-base truncate block">
