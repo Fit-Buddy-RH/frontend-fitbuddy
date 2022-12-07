@@ -20,14 +20,25 @@ export const CardRaceInfo = (params) => {
 
   useEffect(() => {
     axios
-      .get(
-        "https://api.fitbuddy.site/user?me=true",
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .get("https://api.fitbuddy.site/user?me=true", {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
       .then((res) => {
         setUserId(res.data.data.users._id);
       });
   }, []);
+
+  const sendRequest = () => {
+    axios.post(
+      `https://api.fitbuddy.site/raceRequest/${urlParams.id}`,
+      {},
+      { headers: { "Content-Type": "application/json", authorization: user } }
+    )
+    .then((res) => {
+        console.log(res)
+        alert("Se envio la solicitud")
+    })
+  };
 
   const deletePost = () => {
     axios
@@ -86,12 +97,15 @@ export const CardRaceInfo = (params) => {
             <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full">
               Editar
             </button>
-            <button onClick={deletePost} className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full">
+            <button
+              onClick={deletePost}
+              className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full"
+            >
               Eliminar
             </button>
           </div>
         ) : (
-          <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full">
+          <button onClick={sendRequest} className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full">
             Unirse
           </button>
         )}
