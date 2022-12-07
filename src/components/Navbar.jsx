@@ -24,7 +24,7 @@ export const Navbar = () => {
   useEffect(() => {
     axios
       .get(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user?me=true",
+        "https://api.fitbuddy.site/user?me=true",
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {

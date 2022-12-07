@@ -22,7 +22,7 @@ export const LoginPage5 = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios.patch(
-      "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user",
+      "https://api.fitbuddy.site/user",
       data,
       { headers: { 'Content-Type': 'application/json', 'authorization': user }, }
     )

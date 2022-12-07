@@ -27,7 +27,7 @@ export const UserPage = () => {
   useEffect(() => {
     axios
       .get(
-        `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user?idUser=${params.id}`,
+        `https://api.fitbuddy.site/user?idUser=${params.id}`,
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {
@@ -36,7 +36,7 @@ export const UserPage = () => {
 
     axios
       .get(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/friendRequest",
+        "https://api.fitbuddy.site/friendRequest",
         {
           headers: { "Content-Type": "application/json", authorization: user },
         }

@@ -20,7 +20,7 @@ export const UserCard = (params) => {
 
   const sendFriendRequest = () => {
     axios.post(
-      `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/friendRequest/${urlId.id}`,
+      `https://api.fitbuddy.site/friendRequest/${urlId.id}`,
       {},
       { headers: { "Content-Type": "application/json", authorization: user } }
     )
@@ -32,7 +32,7 @@ export const UserCard = (params) => {
   useEffect(() => {
     axios
       .get(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user?me=true",
+        "https://api.fitbuddy.site/user?me=true",
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {

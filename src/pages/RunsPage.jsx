@@ -21,7 +21,7 @@ export const RunsPage = () => {
   useEffect(() => {
     axios
       .get(
-        `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race?long=${geolocation.longitude}&&${geolocation.latitude}&&km=10`,
+        `https://api.fitbuddy.site/race?long=${geolocation.longitude}&&${geolocation.latitude}&&km=10`,
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {

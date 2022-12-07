@@ -9,7 +9,7 @@ import "./loginPage3.scss";
 
 import { useForm, Controller } from "react-hook-form";
 
-const BaseURL = "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/twilio";
+const BaseURL = "https://api.fitbuddy.site/twilio";
 
 export const LoginPage3 = () => {
 
