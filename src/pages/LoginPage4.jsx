@@ -4,7 +4,7 @@ import {Routes, Route,useLocation, useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 import { useForm } from "react-hook-form";
-const BaseURL = "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/twilio";
+const BaseURL = "https://api.fitbuddy.site/twilio";
 
 export const LoginPage4 = () => {
   const location = useLocation();
@@ -36,7 +36,7 @@ export const LoginPage4 = () => {
         if(res.verification.status === "approved"){
           const userVerified = {"isVerified" : true};
           axios.patch(
-          "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user",
+          "https://api.fitbuddy.site/user",
           userVerified,
           { headers: { 'Content-Type': 'application/json', 'authorization': user }, }
         )

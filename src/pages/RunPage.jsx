@@ -23,7 +23,7 @@ export const RunPage = () => {
   useEffect(() => {
     axios
       .get(
-        `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race?race=${params.id}`,
+        `https://api.fitbuddy.site/race?race=${params.id}`,
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {

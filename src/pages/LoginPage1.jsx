@@ -15,7 +15,7 @@ export const LoginPage1 = () => {
       const token = { access_token: codeResponse.access_token };
       await axios
         .post(
-          "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/google",
+          "https://api.fitbuddy.site/google",
           token
         )
         .then((response) => {
