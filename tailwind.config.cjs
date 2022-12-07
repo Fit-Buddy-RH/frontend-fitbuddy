@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'button': '0px 0px 16px',
+      },
       scale: {
         'm': '0.35',
         'p': '0.50'

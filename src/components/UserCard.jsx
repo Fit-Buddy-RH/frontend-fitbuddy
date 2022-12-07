@@ -10,13 +10,11 @@ import axios from "axios";
 export const UserCard = (params) => {
   const [userId, setUserId] = useState();
   const urlId = useParams();
-  console.log(urlId.id)
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     navigate("/login-1");
   }
-  console.log(user)
 
   const sendFriendRequest = () => {
     axios.post(
@@ -26,6 +24,7 @@ export const UserCard = (params) => {
     )
     .then((res) => {
         console.log(res)
+        console.log("Friend Request sent :D")
     })
   };
 

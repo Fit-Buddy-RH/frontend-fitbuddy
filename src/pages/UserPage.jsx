@@ -14,6 +14,9 @@ import "./userPage.scss";
 export const UserPage = () => {
   const [userLogged, setUserLogged] = useState();
   const [friendRequests, setFriendRequests] = useState();
+  const [userFriends, setUserFriends] = useState();
+  const [userRacesCreated, setUserRacesCreated] = useState();
+  const [userRacesAssisted, setUserRacesAssisted] = useState();
   const [openTab, setOpenTab] = useState(1);
   const [friend, setFriend] = useState(false);
   const [userValues, setUserValues] = useState();
@@ -26,23 +29,21 @@ export const UserPage = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://api.fitbuddy.site/user?idUser=${params.id}`,
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .get(`https://api.fitbuddy.site/user?idUser=${params.id}`, {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
       .then((res) => {
+        console.log(res.data.data.users);
+        setUserRacesCreated(res.data.data.users.racesCreated);
+        setUserFriends(res.data.data.users.friends);
         setUserValues(res.data.data.users);
       });
 
     axios
-      .get(
-        "https://api.fitbuddy.site/friendRequest",
-        {
-          headers: { "Content-Type": "application/json", authorization: user },
-        }
-      )
+      .get("https://api.fitbuddy.site/friendRequest", {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
       .then((res) => {
-        console.log(res.data.data.requests);
         setFriendRequests(res.data.data.requests);
       });
 
@@ -175,37 +176,63 @@ export const UserPage = () => {
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold ">
                     Carreras Creadas
                   </h2>
-                  <section className="my-4">
-                    <CardRaceProfile />
-                  </section>
-                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
+                  {userRacesCreated && userRacesCreated.length > 0 ? (
+                    userRacesCreated.map((race) => {
+                      return (
+                        <section className="my-4" key={race._id}>
+                          <CardRaceProfile
+                            title={race.title}
+                            description={race.description}
+                            id={race._id}
+                            quantity={race.quantity}
+                          />
+                        </section>
+                      );
+                    })
+                  ) : (
+                    <h2 className="text-gray-500 font-rubik mb-4">
+                      Aún no creaste ninguna carrera. ¿Quieres empezar con una?
+                    </h2>
+                  )}
+
+                  {/* <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
                     Carreras Actuales
                   </h2>
                   <section className="my-4">
                     <CardRaceProfile />
-                  </section>
+                  </section> */}
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
                     Carreras Asistidas
                   </h2>
-                  <section className="my-4">
-                    <CardRaceProfile />
-                  </section>
-                  <section className="my-4">
-                    <CardRaceProfile />
-                  </section>
-                  <section className="my-4">
-                    <CardRaceProfile />
-                  </section>
+                  {userRacesAssisted && userRacesAssisted.length > 0 ? (
+                    userRacesAssisted.map((race) => {
+                      return (
+                        <section className="my-4" key={race._id}>
+                          <CardRaceProfile
+                            title={race.title}
+                            description={race.description}
+                            id={race._id}
+                            quantity={race.quantity}
+                          />
+                        </section>
+                      );
+                    })
+                  ) : (
+                    <h2 className="text-gray-500 font-rubik my-4">
+                      Aún no finalizaste ninguna carrera. Cuando termines alguna aparecerá en este lugar. 
+                    </h2>
+                  )}
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
                     Solicitudes de amistad
                   </h2>
-                  {friendRequests &&
+                  {friendRequests && friendRequests.length > 0 ? (
                     friendRequests.map((request) => {
-                      console.log(request.userRequester);
+                      console.log(request);
                       return (
                         <CardFriendRequest
+                          requestId={request._id}
                           key={request.userRequester._id}
                           id={request.userRequester._id}
                           friends={request.userRequester.friends.length}
@@ -213,13 +240,38 @@ export const UserPage = () => {
                           created={request.userRequester.racesCreated.length}
                           image={request.userRequester.image}
                           name={request.userRequester.fullname}
+                          userToken={user}
                         />
                       );
-                    })}
+                    })
+                  ) : (
+                    <h2 className="text-gray-500 font-rubik mb-4">
+                      Aún no tienes ninguna solicitud de amistad. En cuanto
+                      tengas una aparecerá aquí.
+                    </h2>
+                  )}
                   <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
                     Amigos
                   </h2>
-                  {/* <CardUserProfile /> */}
+                  {userFriends && userFriends.length > 0 ? (
+                    userFriends.map((friend) => {
+                      return (
+                        <CardUserProfile
+                          key={friend._id}
+                          name={friend.fullname}
+                          friends={friend.friends.length}
+                          created={friend.racesCreated.length}
+                          image={friend.image}
+                          level={friend.level}
+                        />
+                      );
+                    })
+                  ) : (
+                    <h2 className="text-gray-500 font-rubik mb-4">
+                      Aún no tienes ningun amigo. En cuanto tengas uno tus
+                      amigos aparecerán aquí.
+                    </h2>
+                  )}
                 </div>
               </div>
             </div>
