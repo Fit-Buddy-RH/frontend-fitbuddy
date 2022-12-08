@@ -34,7 +34,7 @@ export const CreateRunPage = () => {
 
     axios
       .post(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race",
+        "https://api.fitbuddy.site/race",
         {
           title: data.title,
           description: data.description,
