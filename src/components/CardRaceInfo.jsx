@@ -40,7 +40,7 @@ export const CardRaceInfo = (params) => {
   const deletePost = () => {
     axios
       .delete(
-        `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race/${urlParams.id}`,
+        `https://api.fitbuddy.site/race/${urlParams.id}`,
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {
