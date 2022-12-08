@@ -21,11 +21,9 @@ export const LoginPage1 = () => {
         .then((response) => {
           console.log(response);
           if (response.data.message === "Usuario loggeado con éxito") {
-            console.log("uwu");
             localStorage.setItem("user", JSON.stringify(response.data.token));
             navigate("/runs");
           } else if (response.data.message === "Usuario creado con éxito") {
-            console.log("uwu2");
             localStorage.setItem("user", JSON.stringify(response.data.token));
             navigate("/login-3");
           }
