@@ -46,33 +46,6 @@ export const LoginPage3 = () => {
       });
   };
 
-  // const sendCode = () => {
-  //   if (!isValidNumber(phone)) {
-  //     alert('Invalid phone number');
-  //     return;
-  //   } else {
-  //     // send verfication code to phone number
-  //     fetch(`${BaseURL}/verify/${phone}`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //       .then(res => res.json())
-  //       .then(res => {
-  //         console.log(res);
-  //         if (res.status === 'pending') {
-  //           setCheckedNumber(phone);
-  //           setwaitMessage(false);
-  //         }
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //         alert(err);
-  //       });
-  //   }
-  // };
-
   return (
     <div className="grid grid-cols-12">
       <section className="hidden lg:block lg:col-span-6 bg-login_image min-h-screen bg-cover"></section>
