@@ -82,6 +82,10 @@ export const RunPage = () => {
           <CardComments />
           <CardComments />
         </section>
+        <section>
+            
+
+        </section>
       </div>
     </DefaultLayout>
   );
