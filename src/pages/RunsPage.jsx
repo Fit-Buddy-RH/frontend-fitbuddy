@@ -21,7 +21,7 @@ export const RunsPage = () => {
   useEffect(() => {
     axios
       .get(
-        `https://api.fitbuddy.site/race?long=${geolocation.longitude}&&${geolocation.latitude}&&km=10`,
+        `https://api.fitbuddy.site/race?long=${geolocation.longitude}&&${geolocation.latitude}`,
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {
@@ -47,13 +47,14 @@ export const RunsPage = () => {
             return (
               <section
                 key={race._id}
-                className="col-span-6 md:col-span-12 lg:col-span-6"
+                className="col-span-6 md:col-span-12 lg:col-span-6 "
               >
                 <CardRaces
                   title={race.title}
                   description={race.description}
                   avatar={race.user.image}
                   id={race._id}
+                  image={race.image}
                 />
               </section>
             );

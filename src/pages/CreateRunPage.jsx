@@ -1,6 +1,6 @@
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { CardMapShow } from "../components/CardMapShow";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
@@ -10,8 +10,6 @@ import "./createRunPage.scss";
 
 export const CreateRunPage = () => {
   const navigate = useNavigate();
-  const [image, setImage] = useState([]);
-  const [imageURL, setImageURL] = useState([]);
   const [state, setState] = useState();
   const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
   // console.log(latLng)
@@ -52,24 +50,9 @@ export const CreateRunPage = () => {
       )
       .then((res) => {
         console.log(res);
-        navigate("/my-runs")
+        navigate("/my-runs");
       });
   };
-
-  useEffect(() => {
-    if (image.length < 1) return;
-    const newImageURL = URL.createObjectURL(image[0]);
-    setImageURL(newImageURL);
-  }, [image]);
-
-  function onImageChange(e) {
-    setImage([...e.target.files]);
-  }
-
-  function deleteImage() {
-    setImageURL([]);
-    setImage([]);
-  }
 
   return (
     <DefaultLayout>
@@ -82,33 +65,10 @@ export const CreateRunPage = () => {
             <section className="mb-8">
               <img
                 className="object-cover rounded-t-xl max-h-64 w-full"
-                src={
-                  image.length > 0
-                    ? imageURL
-                    : "https://images.pexels.com/photos/2168292/pexels-photo-2168292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                }
+                src={`https://fibuddy-users-bucket.s3.us-east-2.amazonaws.com/races-photos/race-${
+                  Math.floor(Math.random() * 60) + 1
+                }.jpg`}
                 alt=""
-              />
-            </section>
-            <section className="mb-8 flex flex-row justify-center gap-4">
-              <label
-                htmlFor="image"
-                className="col-span-12 flex bg-gray-900 relative text-gray-50 text-center items-center text-sm sm:text-xl font-bold italic px-8 py-2 ml-2 rounded-full"
-              >
-                Añade una imagen
-              </label>
-              <button
-                onClick={deleteImage}
-                className="col-span-12 bg-gray-900 relative text-gray-50 text-center items-center text-sm sm:text-xl font-bold italic px-8 py-2 mr-2 rounded-full"
-              >
-                Borrar imagen
-              </button>
-              <input
-                id="image"
-                type="file"
-                accept="image/jpeg"
-                onChange={onImageChange}
-                className="hidden"
               />
             </section>
             <section className="m-8">
@@ -135,6 +95,11 @@ export const CreateRunPage = () => {
                     : "text-black-700 border-violet-900"
                 }`}
               />
+              {errors.title && (
+                <p className="text-orange-900 text-sm mt-2">
+                  Ingresa un nombre para la carrera
+                </p>
+              )}
             </section>
             <section className="m-8">
               <label
@@ -159,6 +124,11 @@ export const CreateRunPage = () => {
                     : "text-black-700 border-violet-900"
                 }`}
               />
+              {errors.description && (
+                <p className="text-orange-900 text-sm mt-2">
+                  Ingresa una descripción
+                </p>
+              )}
             </section>
           </div>
           <div className="col-span-12 md:col-span-5 bg-violet-900 rounded-xl p-8 h-96 max-h-100">
@@ -218,13 +188,18 @@ export const CreateRunPage = () => {
                 type="datetime-local"
                 max={moment().format("MMMM Do YYYY, h:mm:ss a")}
                 placeholder="Fecha y Hora"
-                className={`block w-full bg-transparent rounded-lg outline-none py-2 px-4 ${
+                className={`block w-full pointer bg-transparent rounded-lg outline-none py-2 px-4 ${
                   errors.date
                     ? "text-orange-900 border-orange-900"
                     : "text-violet-900 border-violet-700"
                 }`}
                 {...register("date", { required: true })}
               />
+              {errors.km && (
+                <p className="text-orange-900 text-sm mt-2">
+                  Ingresa una fecha y hora para la carrera
+                </p>
+              )}
             </section>
           </div>
           <section className="col-span-12">
@@ -238,7 +213,7 @@ export const CreateRunPage = () => {
             <input
               type="submit"
               value="Crear Carrera"
-              className="bg-orange-900 text-center text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full mb-8"
+              className="bg-orange-900 text-center text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full mb-8 button__orange"
               onClick={() => setValue("coords", latLng)}
             />
           </section>
