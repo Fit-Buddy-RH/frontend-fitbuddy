@@ -55,12 +55,24 @@ export const Navbar = () => {
             </h2>
           </Link>
           <Link to="/runs" className="self-center">
-            <button className="text-gray-50 font-rubik hidden sm:text-lg sm:block sm:pl-4 italic transition hover:scale-110">
+            <button
+              className={`${
+                location.pathname === "/runs"
+                  ? "text-orange-900 underline underline-offset-8 decoration-orange-400 decoration-3"
+                  : "text-gray-50"
+              } font-rubik hidden sm:text-lg sm:block sm:pl-4 italic transition hover:scale-110 hover:text-orange-900`}
+            >
               Carreras
             </button>
           </Link>
           <Link to="/my-runs" className="self-center">
-            <button className="text-gray-50 font-rubik hidden sm:text-lg sm:block italic transition hover:scale-110">
+            <button
+              className={`${
+                location.pathname === "/my-runs"
+                  ? "text-orange-900 underline underline-offset-8 decoration-orange-400 decoration-3"
+                  : "text-gray-50"
+              } font-rubik hidden sm:text-lg sm:block sm:pl-4 italic transition hover:scale-110 hover:text-orange-900`}
+            >
               Mis Carreras
             </button>
           </Link>
@@ -70,20 +82,22 @@ export const Navbar = () => {
             className=" text-gray-50 font-rubik w-full"
             onClick={handleClick}
           >
-            <section className="flex items-center justify-end gap-3 sm:justify-between">
+            <section className="flex items-center justify-end gap-3 sm:justify-between hover:text-orange-900">
               <img
                 className="desktop-navbar__actions__image h-10 w-10 rounded-full"
                 src={userImage}
                 alt="User avatar"
               />
-              <p className="hidden sm:block ">{userLogged}</p>
+              <p className="hidden sm:block hover:text-orange-900">
+                {userLogged}
+              </p>
               <DropdownIcon className="hidden sm:block scale-75" />
             </section>
           </button>
           {isOpen && (
             <section className="absolute right-5 z-10 flex flex-col text-gray-50 bg-black-600 rounded-xl gap-8 py-8 px-4 my-4">
               <Link to={`/user/${userId}`}>
-                <button className="text-gray-50 font-rubik sm:text-lg lg:block transition hover:scale-110">
+                <button className="text-gray-50 font-rubik sm:text-lg lg:block transition hover:scale-110 hover:text-orange-900">
                   <section className="grid grid-cols-3 items-center">
                     <ProfileIcon className="scale-75 col-span-1" />
                     <p>Perfil</p>
@@ -91,7 +105,7 @@ export const Navbar = () => {
                 </button>
               </Link>
               <Link to="/dashboard">
-                <button className="text-gray-50 font-rubik items-center justify-center sm:text-lg lg:block transition hover:scale-110">
+                <button className="text-gray-50 font-rubik items-center justify-center sm:text-lg lg:block transition hover:scale-110 hover:text-orange-900">
                   <section className="grid grid-cols-3 items-center">
                     <BellIcon className="scale-75 col-span-1" />
                     <p className="col-span-2">Solicitudes</p>
@@ -101,7 +115,7 @@ export const Navbar = () => {
               <Link to="/">
                 <button
                   onClick={logout}
-                  className="text-gray-50 font-rubik items-center justify-center sm:text-lg lg:block transition hover:scale-110"
+                  className="text-gray-50 font-rubik items-center justify-center sm:text-lg lg:block transition hover:scale-110 hover:text-orange-900"
                 >
                   <section className="grid grid-cols-3 items-center">
                     <LogoutIcon className="scale-75 col-span-1" />
@@ -114,7 +128,13 @@ export const Navbar = () => {
         </section>
       </div>
 
-      <div className={(location.pathname === ("/runs" || "/my-runs")) ? "flex flex-row gap-8 my-4 md:hidden" : "hidden"}>
+      <div
+        className={
+          location.pathname === ("/runs" || "/my-runs")
+            ? "flex flex-row gap-8 my-4 md:hidden"
+            : "hidden"
+        }
+      >
         <Link to="/runs">
           <button
             className={

@@ -22,10 +22,9 @@ export const RunPage = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://api.fitbuddy.site/race?race=${params.id}`,
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .get(`https://api.fitbuddy.site/race?race=${params.id}`, {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
       .then((res) => {
         setRunValues(res.data.data.races);
         setUserValues(res.data.data.races.user);
@@ -33,7 +32,6 @@ export const RunPage = () => {
   }, []);
 
   let userAccepted = false;
-
 
   return (
     <DefaultLayout>
@@ -43,6 +41,7 @@ export const RunPage = () => {
             <CardRace
               id={userValues._id}
               name={userValues.fullname}
+              image={runValues.image}
               avatar={userValues.image}
               title={runValues.title}
               description={runValues.description}
@@ -58,6 +57,7 @@ export const RunPage = () => {
                 quantity={runValues.quantity}
                 date={runValues.date}
                 user={runValues.user}
+                status={runValues.status}
               />
             )}
           </section>

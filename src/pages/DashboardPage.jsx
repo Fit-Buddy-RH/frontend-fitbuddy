@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { UserCard } from "../components/UserCard";
@@ -25,11 +25,10 @@ export const DashboardPage = () => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
-        console.log(res.data.data.raceRequests)
+        console.log(res.data.data.raceRequests);
         setRequests(res.data.data.raceRequests);
       });
   }, []);
-
 
   const [openTab, setOpenTab] = useState(1);
 
@@ -92,7 +91,6 @@ export const DashboardPage = () => {
                     id="link1"
                   >
                     <CardRaceSent />
-
                   </div>
                   <div
                     className={openTab === 2 ? "block" : "hidden"}

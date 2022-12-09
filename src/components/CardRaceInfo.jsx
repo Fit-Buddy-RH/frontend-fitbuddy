@@ -27,22 +27,22 @@ export const CardRaceInfo = (params) => {
   }, []);
 
   const sendRequest = () => {
-    axios.post(
-      `https://api.fitbuddy.site/raceRequest/${urlParams.id}`,
-      {},
-      { headers: { "Content-Type": "application/json", authorization: user } }
-    )
-    .then((res) => {
-        alert("Se envio la solicitud")
-    })
+    axios
+      .post(
+        `https://api.fitbuddy.site/raceRequest/${urlParams.id}`,
+        {},
+        { headers: { "Content-Type": "application/json", authorization: user } }
+      )
+      .then((res) => {
+        alert("Se envio la solicitud");
+      });
   };
 
   const deletePost = () => {
     axios
-      .delete(
-        `https://api.fitbuddy.site/race/${urlParams.id}`,
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .delete(`https://api.fitbuddy.site/race/${urlParams.id}`, {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
       .then((res) => {
         navigate("/my-runs");
       });
@@ -88,20 +88,23 @@ export const CardRaceInfo = (params) => {
             {params.quantity} personas
           </p>
         </section>
-        {userId === params.user._id ? (
+        {userId === params.user._id && params.status === "Programada" ? (
           <div>
-            <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full">
+            <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full hover:bg-orange-900">
               Editar
             </button>
             <button
               onClick={deletePost}
-              className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full"
+              className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full hover:bg-orange-900"
             >
               Eliminar
             </button>
           </div>
         ) : (
-          <button onClick={sendRequest} className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full">
+          <button
+            onClick={sendRequest}
+            className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full hover:bg-orange-900"
+          >
             Unirse
           </button>
         )}
