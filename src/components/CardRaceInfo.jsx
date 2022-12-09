@@ -88,7 +88,7 @@ export const CardRaceInfo = (params) => {
             {params.quantity} personas
           </p>
         </section>
-        {userId === params.user._id ? (
+        {userId === params.user._id && params.status === "Programada" ? (
           <div>
             <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-4 py-2  my-12 rounded-full hover:bg-orange-900">
               Editar
