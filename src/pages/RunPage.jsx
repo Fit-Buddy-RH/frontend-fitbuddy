@@ -13,6 +13,7 @@ import "./runPage.scss";
 export const RunPage = () => {
   const [runValues, setRunValues] = useState();
   const [userValues, setUserValues] = useState();
+  const [commentValues, setCommentValues] = useState([]);
   const params = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -29,10 +30,16 @@ export const RunPage = () => {
         setRunValues(res.data.data.races);
         setUserValues(res.data.data.races.user);
       });
+
+    axios
+      .get(`https://api.fitbuddy.site/comment/${params.id}`, {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
+      .then((res) => {
+        setCommentValues(res.data.data.comments);
+      });
   }, []);
-
   let userAccepted = false;
-
   return (
     <DefaultLayout>
       <div className=" grid grid-cols-12 gap-6 md:gap-8 xl:mx-28 2xl:mx-96">
@@ -58,6 +65,7 @@ export const RunPage = () => {
                 date={runValues.date}
                 user={runValues.user}
                 status={runValues.status}
+                rate={runValues.rating.$numberDecimal}
               />
             )}
           </section>
