@@ -11,6 +11,9 @@ export const CardRaceInfo = (params) => {
   const urlParams = useParams();
   const navigate = useNavigate();
   const [userId, setUserId] = useState();
+  const [runUserId, setRunUserId] = useState();
+
+  console.log(params);
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
@@ -29,11 +32,7 @@ export const CardRaceInfo = (params) => {
 
   const sendRequest = () => {
     axios
-      .post(
-        `https://api.fitbuddy.site/raceRequest/${urlParams.id}`,
-        {},
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .post(`https://api.fitbuddy.site/raceRequest/${urlParams.id}`, {}, { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
         alert("Se envio la solicitud");
       });
@@ -55,53 +54,31 @@ export const CardRaceInfo = (params) => {
         <RunningIcon className="absolute right-0 z-0 top-10 " />
         {params.status === "Finalizada" && (
           <div className="pt-4 content-evenly">
-            <Rating
-              name="half-rating-read"
-              value={4.3}
-              precision={0.5}
-              readOnly
-            />
-            <span className="px-4 text-gray-50 text-xl font-bold italic">
-              {params.rate} de calificación
-            </span>
+            <Rating name="half-rating-read" value={4.3} precision={0.5} readOnly />
+            <span className="px-4 text-gray-50 text-xl font-bold italic">{params.rate} de calificación</span>
           </div>
         )}
 
         <section className="pt-4 relative">
-          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">
-            Tipo de evento
-          </h2>
-          <p className="px-4 text-gray-50 text-lg font-bold italic">
-            {params.type}
-          </p>
+          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">Tipo de evento</h2>
+          <p className="px-4 text-gray-50 text-lg font-bold italic">{params.type}</p>
         </section>
         <section className="pt-4 relative ">
-          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">
-            Distancia
-          </h2>
-          <p className="px-4 text-gray-50 text-lg font-bold italic">
-            {params.km} km
-          </p>
+          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">Distancia</h2>
+          <p className="px-4 text-gray-50 text-lg font-bold italic">{params.km} km</p>
         </section>
         <section className="pt-4 relative">
-          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">
-            Fecha y hora
-          </h2>
+          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">Fecha y hora</h2>
           <p className="px-4 text-gray-50 text-lg font-bold italic">
             {date.getDate()}/{date.getMonth()}/{date.getFullYear()}
           </p>
           <p className="px-4 text-gray-50 text-lg font-bold italic">
-            {date.getHours()}:
-            {date.getMinutes() === 0 ? "00" : date.getMinutes()}
+            {date.getHours()}:{date.getMinutes() === 0 ? "00" : date.getMinutes()}
           </p>
         </section>
         <section className="pt-4 telative">
-          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">
-            Asistirán
-          </h2>
-          <p className="px-4 text-gray-50 text-lg font-bold italic">
-            {params.quantity} personas
-          </p>
+          <h2 className="px-4 text-gray-50 text-2xl font-bold italic">Asistirán</h2>
+          <p className="px-4 text-gray-50 text-lg font-bold italic">{params.quantity} personas</p>
         </section>
         {userId === params.user._id && params.status === "Programada" ? (
           <div>
@@ -124,9 +101,7 @@ export const CardRaceInfo = (params) => {
           </button>
         ) : params.status === "Finalizada" ? (
           <section className="pt-4 telative">
-            <h2 className="px-4 text-gray-50 text-4xl underline underline-offset-5 font-bold italic ">
-              Finalizada
-            </h2>
+            <h2 className="px-4 text-gray-50 text-4xl underline underline-offset-5 font-bold italic ">Finalizada</h2>
           </section>
         ) : null}
       </div>
