@@ -57,7 +57,7 @@ export const CardRaceInfo = (params) => {
           <div className="pt-4 content-evenly">
             <Rating
               name="half-rating-read"
-              value={params.rate}
+              value={4.3}
               precision={0.5}
               readOnly
             />

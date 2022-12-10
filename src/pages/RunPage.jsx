@@ -20,7 +20,6 @@ export const RunPage = () => {
   if (!user) {
     navigate("/login-1");
   }
-
   useEffect(() => {
     axios
       .get(`https://api.fitbuddy.site/race?race=${params.id}`, {
@@ -39,6 +38,8 @@ export const RunPage = () => {
         setCommentValues(res.data.data.comments);
       });
   }, []);
+
+  console.log(commentValues);
   let userAccepted = false;
   return (
     <DefaultLayout>
@@ -81,14 +82,32 @@ export const RunPage = () => {
             />
           )}
         </section>
-        <section className="col-span-12">
-          <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
-            Comentarios
-          </h2>
-          <CardComments />
-          <CardComments />
-          <CardComments />
-        </section>
+        {runValues ? (
+          runValues.status === "Finalizada" ? (
+            <section className="col-span-12">
+              <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">
+                Comentarios
+              </h2>
+              {commentValues
+                ? commentValues.map((comment) => {
+                    return (
+                      <CardComments
+                        name={comment.user.fullname}
+                        userImage={comment.user.image}
+                        image={comment.image}
+                        rate={comment.rate}
+                        title={comment.title}
+                        text={comment.text}
+                        key={comment.id}
+                      />
+                    );
+                  })
+                : null}
+            </section>
+          ) : (
+            <hr />
+          )
+        ) : null}
       </div>
     </DefaultLayout>
   );
