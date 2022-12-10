@@ -22,11 +22,7 @@ export const CreateComment = () => {
                 <section className="flex justify-between">
                     <div>
                     <input type="text" className="text-gray-50 text-xl font-bold mb-4"placeholder="Escribe un título..."/>
-                    
                     </div>
-                   
-
-
                     <section className="flex flex-end justify-end">
                         <StarsFullIcon className="scale-50"/>
                     </section>
