@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 
 export const CardRace = (params) => {
-    console.log(params)
   return (
     <div className="card-race__container bg-black-600 transition rounded-xl flex flex-col">
       <img
-        src="https://images.pexels.com/photos/2168292/pexels-photo-2168292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        src={params.image}
         alt=""
         className="object-cover rounded-t-xl max-h-64"
       />

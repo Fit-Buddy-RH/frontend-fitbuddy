@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import { ReactComponent as EditRunIcon } from "../assets/EditRunIcon.svg";
 
-export const CardFriendRequest = (params) => {
+export const CardRaceRequest = (params) => {
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
@@ -28,49 +28,14 @@ export const CardFriendRequest = (params) => {
       )
       .then((res) => {
         console.log(res);
-      });
-  };
-
-  const acceptRequest = () => {
-    axios
-      .patch(
-        `https://api.fitbuddy.site/friendRequest/${params.requestId}`,
-        {
-          status: "Aceptado",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: user,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
-  };
-
-  const rejectRequest = () => {
-    axios
-      .delete(
-        `https://api.fitbuddy.site/friendRequest/${params.requestId}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: user,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
+        window.location.reload();
       });
   };
 
   const rejectRace = () => {
     axios
       .delete(
-        `https://api.fitbuddy.site/friendRequest/${params.requestId}`,
+        `https://api.fitbuddy.site/raceRequest/${params.requestId}`,
         {},
         {
           headers: {
@@ -81,6 +46,7 @@ export const CardFriendRequest = (params) => {
       )
       .then((res) => {
         console.log(res);
+        window.location.reload();
       });
   };
 
@@ -124,13 +90,13 @@ export const CardFriendRequest = (params) => {
         </div>
         <div className="self-center flex flex-row sm:flex-col justify-center items-center gap-3 mb-4 mt-1">
           <button
-            onClick={acceptRequest}
+            onClick={acceptRace}
             className="bg-violet-900 font-rubik text-sm text-gray-50 rounded-full px-2 py-1 sm:py-2 sm:px-4 sm:mx-4 sm:mt-4"
           >
             Aceptar
           </button>
           <button
-            onClick={rejectRequest}
+            onClick={rejectRace}
             className="bg-gray-600 font-rubik text-sm text-gray-50 rounded-full px-2 py-1 sm:py-2 sm:px-4 sm:mx-4 sm:mt-4"
           >
             Rechazar

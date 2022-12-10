@@ -1,15 +1,17 @@
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
-import React, { useState, useEffect } from "react";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import React from "react";
+import {useNavigate} from 'react-router-dom';
 
-import PhoneInput from "react-phone-input-2";
+import PI from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 import "./loginPage3.scss";
 
 import { useForm, Controller } from "react-hook-form";
 
-const BaseURL = "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/twilio";
+const PhoneInput = PI.default ? PI.default : PI;
+
+const BaseURL = "https://api.fitbuddy.site/twilio";
 
 export const LoginPage3 = () => {
 
@@ -22,56 +24,23 @@ export const LoginPage3 = () => {
   } = useForm();
 
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user)
   if (!user) {
     navigate('/login-1')
   }
 
   const onSubmit = (data) => {
-    console.log(data.phone);
+    console.log(data);
     fetch(`${BaseURL}/verify/${"+"+data.phone}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
       .then((res) => {
         console.log(res);
         navigate('/login-4',{state:{phone:data.phone}})
       })
-      .catch((err) => {
-        console.log(err);
-        alert(err);
-      });
   };
-
-  // const sendCode = () => {
-  //   if (!isValidNumber(phone)) {
-  //     alert('Invalid phone number');
-  //     return;
-  //   } else {
-  //     // send verfication code to phone number
-  //     fetch(`${BaseURL}/verify/${phone}`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //       .then(res => res.json())
-  //       .then(res => {
-  //         console.log(res);
-  //         if (res.status === 'pending') {
-  //           setCheckedNumber(phone);
-  //           setwaitMessage(false);
-  //         }
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //         alert(err);
-  //       });
-  //   }
-  // };
 
   return (
     <div className="grid grid-cols-12">

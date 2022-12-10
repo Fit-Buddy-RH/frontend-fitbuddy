@@ -10,31 +10,30 @@ import axios from "axios";
 export const UserCard = (params) => {
   const [userId, setUserId] = useState();
   const urlId = useParams();
-  console.log(urlId.id)
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     navigate("/login-1");
   }
-  console.log(user)
 
   const sendFriendRequest = () => {
-    axios.post(
-      `http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/friendRequest/${urlId.id}`,
-      {},
-      { headers: { "Content-Type": "application/json", authorization: user } }
-    )
-    .then((res) => {
-        console.log(res)
-    })
+    axios
+      .post(
+        `https://api.fitbuddy.site/friendRequest/${urlId.id}`,
+        {},
+        { headers: { "Content-Type": "application/json", authorization: user } }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log("Friend Request sent :D");
+      });
   };
 
   useEffect(() => {
     axios
-      .get(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user?me=true",
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .get("https://api.fitbuddy.site/user?me=true", {
+        headers: { "Content-Type": "application/json", authorization: user },
+      })
       .then((res) => {
         setUserId(res.data.data.users._id);
       });
@@ -54,11 +53,14 @@ export const UserCard = (params) => {
           </h2>
         </section>
         {userId === params.id ? (
-          <button className="bg-gray-900 relative text-gray-50 font-bold italic px-8 py-4 my-4 rounded-full">
+          <button className="bg-gray-900 relative text-gray-50 font-bold italic px-8 py-4 my-4 rounded-full hover:bg-orange-900">
             Editar Perfil
           </button>
         ) : (
-          <button onClick={sendFriendRequest} className="bg-gray-900 relative text-gray-50 font-bold italic px-8 py-4 my-4 rounded-full">
+          <button
+            onClick={sendFriendRequest}
+            className="bg-gray-900 relative text-gray-50 font-bold italic px-8 py-4 my-4 rounded-full hover:bg-orange-900"
+          >
             Añadir Amigo
           </button>
         )}

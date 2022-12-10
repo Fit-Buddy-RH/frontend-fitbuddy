@@ -2,15 +2,18 @@ import { Link } from "react-router-dom";
 
 export const CardRaces = (props) => {
   return (
-    <div className="card-races__container bg-black-600 transition rounded-xl flex flex-col hover:scale-105 hover:shadow-lg hover:z-20">
-      <Link to={`/run/${props.id}`} className="card-races__container bg-black-600 transition rounded-xl flex flex-col hover:scale-105 hover:shadow-lg hover:z-20">
+    <div className="card-races__container bg-black-600 transition rounded-xl flex flex-col hover:scale-103 hover:z-10">
+      <Link
+        to={`/run/${props.id}`}
+        className="card-races__container bg-black-600 transition rounded-xl flex flex-col hover:scale-105 hover:z-10"
+      >
         <img
-          src="https://images.pexels.com/photos/2168292/pexels-photo-2168292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={props.image}
           alt=""
           className="object-cover rounded-t-xl h-3/5"
         />
         <section className="relative py-4 max-h-2/5">
-          <h2 className="px-4 text-gray-50 sm:text-xl font-bold italic">
+          <h2 className="px-4 text-gray-50 sm:text-xl font-bold truncate italic">
             {props.title}
           </h2>
           <p className="px-4 text-gray-50 text-sm sm:text-base truncate block">

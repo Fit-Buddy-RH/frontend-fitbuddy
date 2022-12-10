@@ -16,7 +16,7 @@ export const MyRunsPage = () => {
   useEffect(() => {
     axios
       .get(
-        "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/race?me=true",
+        "https://api.fitbuddy.site/race?me=true",
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {

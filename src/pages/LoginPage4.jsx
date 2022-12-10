@@ -4,7 +4,7 @@ import {Routes, Route,useLocation, useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 import { useForm } from "react-hook-form";
-const BaseURL = "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/twilio";
+const BaseURL = "https://api.fitbuddy.site/twilio";
 
 export const LoginPage4 = () => {
   const location = useLocation();
@@ -17,7 +17,6 @@ export const LoginPage4 = () => {
   } = useForm();
 
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user)
   if (!user) {
     navigate('/login-1')
   }
@@ -30,53 +29,20 @@ export const LoginPage4 = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
       .then((res) => {
-        console.log(res.verification.status);
-        if(res.verification.status === "approved"){
-          const userVerified = {"isVerified" : true};
+        console.log(res);
+        if(res.ok === true){
           axios.patch(
-          "http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/user",
-          userVerified,
+          "https://api.fitbuddy.site/user",
+          {
+            "isVerified" : true
+          },
           { headers: { 'Content-Type': 'application/json', 'authorization': user }, }
         )
           navigate('/login-5')
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
   };
-
-  // const verifyCode = () => {
-  //   if (!isValidNumber(checkedNumber)){
-  //     return false;
-  //   }
-
-  //   // Now check if the verfication inserted was the same as
-  //   // the one sent
-  //   fetch(`${BaseURL}/check/${checkedNumber}/${verfication}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       console.log(res);
-  //       if (res.status === 'approved') {
-  //         alert('Phone Verfied');
-  //         // Navigate to another page  once phone is verfied
-  //         navigation.navigate('nextPage');
-  //       } else {
-  //         // Handle other error cases like network connection problems
-  //         alert('Verfication failed try again!!');
-  //         // reset();
-  //         // If not network error like wrong number try again
-  //         setretry(true);
-  //       }
-  //     });
-  // };
 
   return (
     <div className="grid grid-cols-12">
