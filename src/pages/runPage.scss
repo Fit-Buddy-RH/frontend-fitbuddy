@@ -5,3 +5,20 @@
 .mapboxgl-ctrl-attrib-inner{
     display: none;
 }
+
+#inputImage{
+    margin:20px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 5px;
+  }
+  #inputFile{
+display: none;
+    margin-top: 0%;
+
+  }
+  #textFile{
+    padding: 28px 10px;
+    color: #fff;
+    background: black;
+    border-radius: 50%;
+  }
