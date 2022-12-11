@@ -13,7 +13,7 @@ export const LoginPage1 = () => {
     onSuccess: async (codeResponse) => {
       console.log(codeResponse.access_token);
       const token = { access_token: codeResponse.access_token };
-      await axios.post("http://fitbuddyapi-env.eba-evmvjpbk.us-east-1.elasticbeanstalk.com/google", token).then((response) => {
+      await axios.post("https://api.fitbuddy.site/google", token).then((response) => {
         console.log(response);
         if (response.data.message === "Usuario loggeado con éxito") {
           localStorage.setItem("user", JSON.stringify(response.data.token));
