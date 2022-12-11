@@ -48,6 +48,7 @@ export const MyRunsPage = () => {
                 description={race.description}
                 avatar={race.user.image}
                 id={race._id}
+                image={race.image}
               />
             </section>
           );

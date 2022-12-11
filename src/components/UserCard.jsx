@@ -53,9 +53,9 @@ export const UserCard = (params) => {
           </h2>
         </section>
         {userId === params.id ? (
-          <button className="bg-gray-900 relative text-gray-50 font-bold italic px-8 py-4 my-4 rounded-full hover:bg-orange-900">
-            Editar Perfil
-          </button>
+          <p>
+            
+          </p>
         ) : (
           <button
             onClick={sendFriendRequest}
