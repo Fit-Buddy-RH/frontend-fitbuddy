@@ -29,7 +29,6 @@ export const CardMap = (props) => {
       });
   }, []);
 
-  //   let userAccepted = true;
   return (
     <Map
       initialViewState={{
@@ -49,7 +48,7 @@ export const CardMap = (props) => {
         anchor="center"
         pitchAlignment="auto"
       >
-        { (props.userAccepted)  ? <LocationIcon /> : <AreaIcon scale={3} />}
+        { (props.userAccepted || props.userOwner)  ? <LocationIcon /> : <AreaIcon scale={3} />}
       </Marker>
     </Map>
   );

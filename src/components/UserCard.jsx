@@ -18,14 +18,14 @@ export const UserCard = (params) => {
 
   const sendFriendRequest = () => {
     axios
-      .post(
-        `https://api.fitbuddy.site/friendRequest/${urlId.id}`,
-        {},
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .post(`https://api.fitbuddy.site/friendRequest/${urlId.id}`, {}, { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
         console.log(res);
-        console.log("Friend Request sent :D");
+        alert("Solicitud de amistad enviada")
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        alert(error.response.data.message);
       });
   };
 
@@ -36,6 +36,12 @@ export const UserCard = (params) => {
       })
       .then((res) => {
         setUserId(res.data.data.users._id);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+        if (err.response.data.error === "jwt expired") {
+          navigate("/login-1");
+        }
       });
   }, []);
 
@@ -43,19 +49,11 @@ export const UserCard = (params) => {
     <div className="card-user__container bg-violet-900 transition rounded-xl flex flex-col justify-center">
       <div className="relative my-4 overflow-clip flex flex-col justify-center items-center">
         <section className="flex flex-col md:py-6 xl:py-4">
-          <img
-            className="desktop-navbar__actions__image h-40 w-40 rounded-full self-center"
-            src={params.image}
-            alt="User avatar"
-          />
-          <h2 className="px-4 mt-4 text-gray-50 text-xl font-bold text-center italic">
-            {params.fullname}
-          </h2>
+          <img className="desktop-navbar__actions__image h-40 w-40 rounded-full self-center" src={params.image} alt="User avatar" />
+          <h2 className="px-4 mt-4 text-gray-50 text-xl font-bold text-center italic">{params.fullname}</h2>
         </section>
         {userId === params.id ? (
-          <p>
-            
-          </p>
+          <p></p>
         ) : (
           <button
             onClick={sendFriendRequest}
@@ -72,7 +70,7 @@ export const UserCard = (params) => {
           </section>
           <section className="flex flex-col items-center">
             <RunIcon className="scale-50" />
-            <p className=" text-gray-50  font-bold text-center italic">{` carrera asistida`}</p>
+            <p className=" text-gray-50  font-bold text-center italic">{`${params.assisted} carrera asistida`}</p>
           </section>
           <section className="flex flex-col items-center">
             <EditRunIcon className="scale-50" />

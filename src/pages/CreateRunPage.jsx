@@ -12,7 +12,6 @@ export const CreateRunPage = () => {
   const navigate = useNavigate();
   const [state, setState] = useState();
   const [latLng, setLatLng] = useState([-99.18670587646949, 19.42591581551342]);
-  // console.log(latLng)
 
   const {
     register,
@@ -22,7 +21,6 @@ export const CreateRunPage = () => {
   } = useForm();
 
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   if (!user) {
     navigate("/login-1");
   }

@@ -13,23 +13,28 @@ import "./userPage.scss";
 
 export const MyProfilePage = () => {
   const [openTab, setOpenTab] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   if (!user) {
     navigate("/login-1");
   }
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(
-        "https://api.fitbuddy.site/user?me=true",
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .get("https://api.fitbuddy.site/user?me=true", { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
-        console.log(res.data.data.users)
+        console.log(res.data.data.users);
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+        if (err.response.data.error === "jwt expired") {
+          navigate("/login-1");
+        }
       });
-  },[])
+  }, []);
 
   useEffect(() => {
     let calculateAngle = function (e, item, parent) {
@@ -53,9 +58,7 @@ export const MyProfilePage = () => {
       item.style.perspective = `${halfWidth * 3}px`;
 
       if (parent.getAttribute("data-custom-perspective") !== null) {
-        parent.style.perspective = `${parent.getAttribute(
-          "data-custom-perspective"
-        )}`;
+        parent.style.perspective = `${parent.getAttribute("data-custom-perspective")}`;
       }
 
       let calcShadowX = (x - halfWidth) / 70;
@@ -79,12 +82,8 @@ export const MyProfilePage = () => {
         if (item.getAttribute("data-filter-color") !== null) {
           dropShadowColor = item.getAttribute("data-filter-color");
         }
-        item.querySelector(
-          ".user__card-profile"
-        ).style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
-        item.querySelector(
-          ".user__card-profile"
-        ).style.filter = `drop-shadow(0 10px 15px ${dropShadowColor})`;
+        item.querySelector(".user__card-profile").style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+        item.querySelector(".user__card-profile").style.filter = `drop-shadow(0 10px 15px ${dropShadowColor})`;
       });
     });
   }, []);
@@ -101,9 +100,7 @@ export const MyProfilePage = () => {
               <a
                 className={
                   "text-xs font-bold uppercase px-5 py-3 rounded-full block leading-normal " +
-                  (openTab === 1
-                    ? "text-white " + "bg-orange-900"
-                    : "text-gray-50")
+                  (openTab === 1 ? "text-white " + "bg-orange-900" : "text-gray-50")
                 }
                 onClick={(e) => {
                   e.preventDefault();
@@ -120,9 +117,7 @@ export const MyProfilePage = () => {
               <a
                 className={
                   "text-xs font-bold uppercase px-5 py-3 rounded-full block leading-normal " +
-                  (openTab === 2
-                    ? "text-white " + "bg-orange-900"
-                    : "text-gray-50")
+                  (openTab === 2 ? "text-white " + "bg-orange-900" : "text-gray-50")
                 }
                 onClick={(e) => {
                   e.preventDefault();
@@ -140,21 +135,15 @@ export const MyProfilePage = () => {
             <div className="flex-auto">
               <div className="w-full">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold ">
-                    Carreras Creadas
-                  </h2>
+                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold ">Carreras Creadas</h2>
                   <section className="my-4">
                     <CardRaceProfile />
                   </section>
-                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
-                    Carreras Actuales
-                  </h2>
+                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">Carreras Actuales</h2>
                   <section className="my-4">
                     <CardRaceProfile />
                   </section>
-                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">
-                    Carreras Asistidas
-                  </h2>
+                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">Carreras Asistidas</h2>
                   <section className="my-4">
                     <CardRaceProfile />
                   </section>
@@ -166,13 +155,9 @@ export const MyProfilePage = () => {
                   </section>
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
-                    Solicitudes de amistad
-                  </h2>
+                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">Solicitudes de amistad</h2>
                   <CardFriendRequest />
-                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">
-                    Amigos
-                  </h2>
+                  <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">Amigos</h2>
                   <CardUserProfile />
                 </div>
               </div>

@@ -14,7 +14,7 @@ import { CreateRunPage } from "./pages/CreateRunPage";
 import { LoginPage3 } from "./pages/LoginPage3";
 import { LoginPage4 } from "./pages/LoginPage4";
 import { LoginPage5 } from "./pages/LoginPage5";
-import { CreateComment } from "./pages/CreateComment";
+
 
 import "./App.css";
 
@@ -37,8 +37,6 @@ function App() {
         <Route path="/post" element={<CreateRunPage />} />
         <Route path="/user/:id" element={<UserPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/create" element={<CreateComment/>} />
-
 
       </Routes>
     </BrowserRouter>
