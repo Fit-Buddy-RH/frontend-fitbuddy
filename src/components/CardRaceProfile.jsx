@@ -5,7 +5,7 @@ export const CardRaceProfile = (params) => {
     <div>
       <Link to={`/run/${params.id}`} className="card-race-profile__container bg-black-600 transition rounded-xl flex flex-row">
         <img
-          src="https://images.pexels.com/photos/2168292/pexels-photo-2168292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={params.image}
           alt=""
           className="object-cover rounded-l-xl w-20"
         />
