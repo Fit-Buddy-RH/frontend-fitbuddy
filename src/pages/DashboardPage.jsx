@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { CardRaceSent } from "../components/CardRaceSent";
 import { CardRaceRequest } from "../components/CardRaceRequest";
@@ -11,12 +11,13 @@ import "./dashboardPage.scss";
 
 export const DashboardPage = () => {
   const [userRaces, setUserRaces] = useState([]);
+  const [userRequests, setUserRequests] = useState();
   const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
+  const params = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user)
   if (!user) {
     navigate("/login-1");
   }
@@ -28,7 +29,6 @@ export const DashboardPage = () => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
-        console.log(res.data.data);
         setRequests(res.data.data.raceRequests);
       })
       .catch((err) => {
@@ -37,13 +37,27 @@ export const DashboardPage = () => {
           navigate("/login-1");
         }
       });
-      axios
+    axios
       .get("https://api.fitbuddy.site/user?me=true", {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
-        console.log(res.data.data.users);
         setLoading(false);
+        axios
+          .get(`https://api.fitbuddy.site/raceRequest?idUser=${res.data.data.users._id}`, {
+            headers: { "Content-Type": "application/json", authorization: user },
+          })
+          .then((res) => {
+            console.log(res.data.data.requests);
+            setUserRequests(res.data.data.requests);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err.response.data.error);
+            if (err.response.data.error === "jwt expired") {
+              navigate("/login-1");
+            }
+          });
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -124,7 +138,27 @@ export const DashboardPage = () => {
                 <div className="px-4 py-5 flex-auto">
                   <div className="">
                     <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                      <CardRaceSent />
+                      {userRequests && userRequests.length > 0 ? (
+                        userRequests.map((request) => {
+                          console.log(request.race);
+                          return (
+                            <CardRaceSent
+                              image={request.race.image}
+                              title={request.race.title}
+                              description={request.race.description}
+                              assistants={request.race.assistants.length}
+                              status={request.race.status}
+                            />
+                          );
+                        })
+                      ) : (
+                        // <CardRaceSent name={"a"} />
+                        <section>
+                          <h2 className="text-gray-500 font-rubik mb-4">
+                            Aún no recibiste enviaste solicitud de carrera. Cuando tengas alguna aparecerá aquí.
+                          </h2>
+                        </section>
+                      )}
                     </div>
                     <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                       {requests && requests.length > 0 ? (
@@ -148,7 +182,9 @@ export const DashboardPage = () => {
                         })
                       ) : (
                         <section>
-                          <h2 className="text-gray-500 font-rubik mb-4">Aún no recibiste ninguna solicitud de carrera. Cuando tengas alguna aparecerá aquí.</h2>
+                          <h2 className="text-gray-500 font-rubik mb-4">
+                            Aún no recibiste ninguna solicitud de carrera. Cuando tengas alguna aparecerá aquí.
+                          </h2>
                         </section>
                       )}
                     </div>
