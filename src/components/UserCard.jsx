@@ -9,6 +9,8 @@ import axios from "axios";
 
 export const UserCard = (params) => {
   const [userId, setUserId] = useState();
+  const [userFriends, setUserFriends] = useState();
+  const [friend, setFriend] = useState(false);
   const urlId = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -35,6 +37,12 @@ export const UserCard = (params) => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
+        setUserFriends(res.data.data.users.friends);
+        res.data.data.users.friends.map((friend) => {
+          if (friend._id === urlId.id){
+            setFriend(true)
+          }
+        })
         setUserId(res.data.data.users._id);
       })
       .catch((err) => {
@@ -52,7 +60,7 @@ export const UserCard = (params) => {
           <img className="desktop-navbar__actions__image h-40 w-40 rounded-full self-center" src={params.image} alt="User avatar" />
           <h2 className="px-4 mt-4 text-gray-50 text-xl font-bold text-center italic">{params.fullname}</h2>
         </section>
-        {userId === params.id ? (
+        {(userId === params.id) || friend ? (
           <p></p>
         ) : (
           <button

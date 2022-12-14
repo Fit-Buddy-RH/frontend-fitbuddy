@@ -174,7 +174,11 @@ export const RunPage = () => {
                     <div className="card-comment__container bg-black-600 transition rounded-xl flex flex-col my-4">
                       <div className="grid grid-cols-12">
                         <section className="col-span-12 md:col-span-2 flex flex-row md:flex-col justify-center items-center gap-4 md:p-4 mt-4 md:mt-0">
-                          <img className="desktop-navbar__actions__image h-10 w-10 md:h-14 md:w-14 md:mb-4 rounded-full" src={userValues.image} alt="User avatar" />
+                          <img
+                            className="desktop-navbar__actions__image h-10 w-10 md:h-14 md:w-14 md:mb-4 rounded-full"
+                            src={userValues.image}
+                            alt="User avatar"
+                          />
                           <div>
                             <h3 className="md:block text-gray-50 md:text-xl font-bold italic md:mb-4 text-center">{userValues.fullname}</h3>
                           </div>
@@ -196,9 +200,9 @@ export const RunPage = () => {
                                 setRating(newValue);
                               }}
                               sx={{
-                                '& .MuiRating-iconEmpty': {
-                                  color: 'white',
-                                }
+                                "& .MuiRating-iconEmpty": {
+                                  color: "white",
+                                },
                               }}
                             />
                             <input {...register("rating")} className="hidden" />

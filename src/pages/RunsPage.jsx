@@ -22,7 +22,7 @@ export const RunsPage = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://api.fitbuddy.site/race?long=${geolocation.longitude}&&${geolocation.latitude}`, {
+      .get(`https://api.fitbuddy.site/race?long=${geolocation.longitude}&&lat=${geolocation.latitude}`, {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
@@ -30,7 +30,6 @@ export const RunsPage = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }

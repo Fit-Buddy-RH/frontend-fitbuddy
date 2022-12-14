@@ -3,6 +3,7 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      opacity: ['disabled'],
       boxShadow: {
         button: "0px 0px 16px",
       },
@@ -54,6 +55,9 @@ module.exports = {
     textDecorationThickness: {
       3: "3px",
     },
+  },
+  variants: {
+    opacity: ({ after }) => after(['disabled'])
   },
   plugins: [],
 };

@@ -10,8 +10,11 @@ export const CardRaceInfo = (params) => {
   const date = new Date(params.date);
   const urlParams = useParams();
   const navigate = useNavigate();
+  const [userRequests, setUserRequests] = useState();
+  const [requestSent, setRequestSent] = useState(false);
   const [userId, setUserId] = useState();
   const [runUserId, setRunUserId] = useState();
+  const [requestDone, setRequestDone] = useState(false);
 
   // console.log(date.getUTCHours());
 
@@ -26,13 +29,30 @@ export const CardRaceInfo = (params) => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
+        console.log(res.data.data.users);
         setUserId(res.data.data.users._id);
+        axios
+          .get(`https://api.fitbuddy.site/raceRequest?idUser=${res.data.data.users._id}`, {
+            headers: { "Content-Type": "application/json", authorization: user },
+          })
+          .then((res) => {
+            console.log(res.data.data.requests);
+            res.data.data.requests.map((req) => {
+              console.log(req.race._id);
+              if (req.race._id === urlParams.id) {
+                console.log("Request already done");
+                setRequestDone(true);
+              }
+            });
+            setUserRequests(res.data.data.requests);
+          });
       })
       .catch((err) => {
         console.log(err.response.data.error);
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
+        
       });
   }, []);
 
@@ -40,11 +60,12 @@ export const CardRaceInfo = (params) => {
     axios
       .post(`https://api.fitbuddy.site/raceRequest/${urlParams.id}`, {}, { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
-        alert("Se envio la solicitud").then(window.location.reload());
+        setRequestSent(true);
+        alert("Se envio la solicitud");
         console.log(res);
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.log(error.response);
       });
   };
 
@@ -54,6 +75,7 @@ export const CardRaceInfo = (params) => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
+        alert(res.data.message);
         navigate("/my-runs");
       });
   };
@@ -103,10 +125,12 @@ export const CardRaceInfo = (params) => {
           </div>
         ) : userId !== params.user._id && params.status === "Programada" ? (
           <button
-            onClick={sendRequest}
-            className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full hover:bg-orange-900"
+            onClick={requestDone || requestSent ? null : sendRequest}
+            className={`bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full
+            ${requestDone || requestSent ? "bg-gray-800 cursor-not-allowed disable" : "hover:bg-orange-900"}
+            `}
           >
-            Unirse
+            {requestDone || requestSent ? "Solicitud enviada" : "Unirse"}
           </button>
         ) : params.status === "Finalizada" ? (
           <section className="pt-6">

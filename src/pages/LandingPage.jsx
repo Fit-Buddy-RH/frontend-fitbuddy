@@ -27,7 +27,7 @@ export const LandingPage = () => {
             ÚNETE PARA CONOCER, SOCIALIZAR Y PRACTICAR CON TU COMUNIDAD RUNNER
             LOCAL
           </h2>
-          <Link to="/login-1" className="self-center md:self-start">
+          <Link to="/login-2" className="self-center md:self-start">
             <button className="text-gray-50 transition font-rubik font-bold px-4 xl:text-xl italic bg-violet-900 hover:bg-violet-700 hover:shadow-md hover:shadow-violet-900 py-4 rounded-full">
               ¡ ÚNETE A FITBUDDY!
             </button>

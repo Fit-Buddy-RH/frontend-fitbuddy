@@ -7,7 +7,7 @@ import { CardRaceProfile } from "../components/CardRaceProfile";
 import { CardUserProfile } from "../components/CardUserProfile";
 import { CardFriendRequest } from "../components/CardFriendRequest";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import "./userPage.scss";
 
@@ -276,14 +276,15 @@ export const UserPage = () => {
                     {userFriends && userFriends.length > 0 ? (
                       userFriends.map((friend) => {
                         return (
-                          <CardUserProfile
-                            key={friend._id}
-                            name={friend.fullname}
-                            friends={friend.friends.length}
-                            created={friend.racesCreated.length}
-                            image={friend.image}
-                            level={friend.level}
-                          />
+                          <Link to={`/user/${friend._id}`} key={friend._id}>
+                            <CardUserProfile
+                              name={friend.fullname}
+                              friends={friend.friends.length}
+                              created={friend.racesCreated.length}
+                              image={friend.image}
+                              level={friend.level}
+                            />
+                          </Link>
                         );
                       })
                     ) : (
