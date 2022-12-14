@@ -56,7 +56,7 @@ export const LoginPage4 = () => {
             </h1>
           </section>
           <h2 className="font-rubik lg:text-xl italic font-semibold text-gray-50 mb-8 text-center">
-            Se ha enviado un código a tu Whatsapp. Introdúcelo a continuacion
+            Se ha enviado un código vía SMS a tu teléfono. Introdúcelo a continuacion
             para validar tu cuenta.
           </h2>
           <section>

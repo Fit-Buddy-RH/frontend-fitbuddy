@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-
 import { CardRaceSent } from "../components/CardRaceSent";
 import { CardRaceRequest } from "../components/CardRaceRequest";
 import axios from "axios";
@@ -36,6 +34,7 @@ export const DashboardPage = () => {
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
+        window.location.reload();
       });
     axios
       .get("https://api.fitbuddy.site/user?me=true", {
@@ -64,6 +63,7 @@ export const DashboardPage = () => {
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
+        window.location.reload();
       });
   }, []);
 
@@ -140,15 +140,16 @@ export const DashboardPage = () => {
                     <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                       {userRequests && userRequests.length > 0 ? (
                         userRequests.map((request) => {
-                          console.log(request.race);
                           return (
-                            <CardRaceSent
-                              image={request.race.image}
-                              title={request.race.title}
-                              description={request.race.description}
-                              assistants={request.race.assistants.length}
-                              status={request.race.status}
-                            />
+                            <Link to={`/run/${request.race._id}`} key={request.race._id}>
+                              <CardRaceSent
+                                image={request.race.image}
+                                title={request.race.title}
+                                description={request.race.description}
+                                assistants={request.race.assistants.length}
+                                status={request.status}
+                              />
+                            </Link>
                           );
                         })
                       ) : (
@@ -163,13 +164,12 @@ export const DashboardPage = () => {
                     <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                       {requests && requests.length > 0 ? (
                         requests.map((request) => {
-                          console.log(request);
                           return (
                             <section key={request._id}>
                               <h2 className="text-gray-50 font-rubik font-bold italic mb-4">{request.race.title}</h2>
                               <p className="text-gray-50 font-rubik italic mb-4"></p>
-
                               <CardRaceRequest
+                                user={request.user._id}
                                 name={request.user.fullname}
                                 friends={request.user.friends.length}
                                 level={request.user.level}

@@ -1,13 +1,33 @@
-import { DefaultLayout } from "../layouts/DefaultLayout";
 import axios from "axios";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useForm } from "react-hook-form";
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import { ReactComponent as GoogleIcon } from "../assets/GoogleIconButton.svg";
-import { ReactComponent as FacebookIcon } from "../assets/FacebookIconButton.svg";
 
 export const LoginPage1 = () => {
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    axios.post("https://api.fitbuddy.site/login",
+    {
+      email: data.email,
+      password: data.password
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      alert(err);
+    })
+  };
+  console.log(errors);
+
   const googleLogin = useGoogleLogin({
     // flow: "auth-code",
     onSuccess: async (codeResponse) => {
@@ -34,7 +54,41 @@ export const LoginPage1 = () => {
           <FitbuddyIcon />
           <h1 className="p-2 text-gray-50 font-rubik text-2xl italic font-bold">Fitbuddy</h1>
         </div>
-        <div className="mt-4 w-48 text-gray-50 text-center">Puedes iniciar sesión con alguno de los siguientes servicios:</div>
+        <div className="my-4 w-48 text-gray-50 text-center">Escribe tu email y tu contraseña para iniciar sesión:</div>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <input
+              type="text"
+              className={`block w-full bg-transparent rounded-lg outline-none border-b-2 py-2 px-4 ${
+                errors.email ? "placeholder-orange-900 text-orange-900 border-orange-900" : "placeholder-gray-700 text-black-700 border-violet-700"
+              }`}
+              placeholder="Email"
+              {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+            />
+            {errors.email && <p className="text-orange-900 text-sm -mt-2">Introduce un email válido</p>}
+            <input
+              type="password"
+              className={`block w-full bg-transparent rounded-lg outline-none border-b-2 py-2 px-4 ${
+                errors.password ? "placeholder-orange-900 text-orange-900 border-orange-900" : "placeholder-gray-700 text-black-700 border-violet-700"
+              }`}
+              placeholder="Password"
+              {...register("password", { required: true, minLength: 6 })}
+            />
+            {errors.password && <p className="text-orange-900 text-sm -mt-2">Introduce una contraseña válida</p>}
+
+            <input
+              type="submit"
+              value="Iniciar Sesión"
+              className="bg-violet-900 text-center cursor-pointer text-gray-50 text-xl font-bold italic px-8 py-2 rounded-full hover:shadow-button hover:shadow-violet-900 transition"
+            />
+          </form>
+        </div>
+        <div className="relative flex py-5 items-center w-56">
+          <div className="flex-grow border-t border-gray-500"></div>
+          <span className="flex-shrink mx-4 text-gray-500">O</span>
+          <div className="flex-grow border-t border-gray-500"></div>
+        </div>
+        <div className="w-48 text-gray-50 text-center">Puedes iniciar sesión con Google:</div>
         <button
           className="flex 
           items-center
@@ -60,6 +114,14 @@ export const LoginPage1 = () => {
           <GoogleIcon className="m-2 md:m-4" />
           Google
         </button>
+        <div className="mt-2">
+          <p className="text-gray-50 text-sm">
+            ¿No tienes una cuenta?
+            <Link to="/login-2">
+              <span className="text-violet-900 text-sm"> Registrate</span>
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
