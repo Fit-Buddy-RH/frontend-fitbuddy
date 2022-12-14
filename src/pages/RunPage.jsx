@@ -31,6 +31,7 @@ export const RunPage = () => {
   const params = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
+
   if (!user) {
     navigate("/login-1");
   }

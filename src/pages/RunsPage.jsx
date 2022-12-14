@@ -15,6 +15,7 @@ export const RunsPage = () => {
   const [userAvatar, setUserAvatar] = useState();
 
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   if (!user) {
     navigate("/login-1");
   }
@@ -30,9 +31,11 @@ export const RunsPage = () => {
         setLoading(false);
       })
       .catch((err) => {
+
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
+
       });
   }, [geolocation]);
 

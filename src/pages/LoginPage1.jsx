@@ -14,17 +14,25 @@ export const LoginPage1 = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    axios.post("https://api.fitbuddy.site/login",
-    {
-      email: data.email,
-      password: data.password
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      alert(err);
-    })
+    axios
+      .post("https://api.fitbuddy.site/login", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.message === "Usuario loggeado con éxito") {
+          localStorage.setItem("user", JSON.stringify(response.data.token));
+          navigate("/runs");
+        } else if (response.data.message === "Usuario creado con éxito") {
+          localStorage.setItem("user", JSON.stringify(response.data.token));
+          navigate("/login-3");
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        alert(err.response.data.message)
+      });
   };
   console.log(errors);
 
