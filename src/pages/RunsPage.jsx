@@ -30,9 +30,11 @@ export const RunsPage = () => {
         setLoading(false);
       })
       .catch((err) => {
+
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
+
       });
   }, [geolocation]);
 

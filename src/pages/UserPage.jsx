@@ -14,11 +14,13 @@ import "./userPage.scss";
 export const UserPage = () => {
   const [friendRequests, setFriendRequests] = useState();
   const [loading, setLoading] = useState(false);
+  const [errorState, setErrorState] = useState();
   const [userFriends, setUserFriends] = useState();
   const [userRacesCreated, setUserRacesCreated] = useState();
   const [userRacesAssisted, setUserRacesAssisted] = useState();
   const [openTab, setOpenTab] = useState(1);
   const [friend, setFriend] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [userValues, setUserValues] = useState();
   const navigate = useNavigate();
   const params = useParams();
@@ -40,7 +42,6 @@ export const UserPage = () => {
         setUserValues(res.data.data.users);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
@@ -54,7 +55,6 @@ export const UserPage = () => {
         setFriendRequests(res.data.data.requests);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
@@ -69,7 +69,6 @@ export const UserPage = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
@@ -166,11 +165,60 @@ export const UserPage = () => {
                     level={userValues.level}
                     created={userValues.racesCreated.length}
                     className="user__card-content"
+                    setShowModal={setShowModal}
+                    setErrorState={setErrorState}
+                    showModal={showModal}
                   />
                 )}
               </section>
             </section>
           )}
+          {showModal ? (
+            <>
+              <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto absolute inset-0 z-50 outline-none focus:outline-none">
+                <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-900 outline-none focus:outline-none">
+                    <div className="flex items-center justify-center p-5 border-b border-solid border-gray-200 rounded-t">
+                      <h3 className="lg:text-xl text-gray-50 font-rubik font-semibold">¡ Solicitud de amistad enviada !</h3>
+                    </div>
+                    <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                      <button
+                        className="bg-violet-900 text-center cursor-pointer text-gray-50 text-sm lg:text-xl font-bold italic px-8 py-2 rounded-full"
+                        type="button"
+                        onClick={() => setShowModal(false)}
+                      >
+                        Seguir buscando carreras
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="opacity-50 fixed inset-0 z-40 bg-black-700"></div>
+            </>
+          ) : null}
+          {errorState ? (
+            <>
+              <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto absolute inset-0 z-50 outline-none focus:outline-none">
+                <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-900 outline-none focus:outline-none">
+                    <div className="flex items-center justify-center p-5 border-b border-solid border-gray-200 rounded-t">
+                      <h3 className="lg:text-xl text-gray-50 text-center font-rubik font-semibold">¡ Ya enviaste una solicitud a este usuario !</h3>
+                    </div>
+                    <div className="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
+                      <button
+                        className="bg-violet-900 text-center text-sm cursor-pointer text-gray-50 lg:text-xl font-bold italic px-8 py-2 rounded-full"
+                        type="button"
+                        onClick={() => setErrorState(false)}
+                      >
+                        Seguir buscando carreras
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="opacity-50 fixed inset-0 z-40 bg-black-700"></div>
+            </>
+          ) : null}
           <section className="col-span-12 sm:col-span-7 flex flex-col place-self-start  w-full h-min-screen text-gray-50">
             <ul
               className="flex list-none flex-row justify-center items-center place-self-center sm:place-self-start mb-4 bg-gray-800 rounded-full tabs__container"
@@ -309,6 +357,9 @@ export const UserPage = () => {
                   level={userValues.level}
                   created={userValues.racesCreated.length}
                   className="user__card-content"
+                  setShowModal={setShowModal}
+                  showModal={showModal}
+                  setErrorState={setErrorState}
                 />
               )}
             </section>

@@ -10,6 +10,7 @@ export const CardRaceInfo = (params) => {
   const date = new Date(params.date);
   const urlParams = useParams();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const [userRequests, setUserRequests] = useState();
   const [requestSent, setRequestSent] = useState(false);
   const [userId, setUserId] = useState();
@@ -52,7 +53,6 @@ export const CardRaceInfo = (params) => {
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
-        
       });
   }, []);
 
@@ -61,7 +61,8 @@ export const CardRaceInfo = (params) => {
       .post(`https://api.fitbuddy.site/raceRequest/${urlParams.id}`, {}, { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
         setRequestSent(true);
-        alert("Se envio la solicitud");
+        setShowModal(true);
+        // alert("Se envio la solicitud");
         console.log(res);
       })
       .catch((error) => {
@@ -90,6 +91,29 @@ export const CardRaceInfo = (params) => {
             <h2 className="px-4 text-gray-50 text-xl font-bold italic">{params.rate} de calificación</h2>
           </section>
         )}
+        {showModal ? (
+          <>
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-900 outline-none focus:outline-none">
+                  <div className="flex items-center justify-center p-5 border-b border-solid border-gray-200 rounded-t">
+                    <h3 className="text-2xl text-gray-50 font-rubik font-semibold">¡ Se envió la solicitud !</h3>
+                  </div>
+                  <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                    <button
+                      className="bg-violet-900 text-center cursor-pointer text-gray-50 text-xl font-bold italic px-8 py-2 rounded-full"
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                    >
+                      Seguir buscando carreras
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-50 fixed inset-0 z-40 bg-black-700"></div>
+          </>
+        ) : null}
         <section className="pt-4 relative">
           <h2 className="px-4 text-gray-50 text-2xl font-bold italic">Tipo de evento</h2>
           <p className="px-4 text-gray-50 text-lg font-bold italic">{params.type}</p>

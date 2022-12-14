@@ -22,7 +22,6 @@ export const LoginPage4 = () => {
   }
 
   const onSubmit = (data) => {
-    console.log(data.code);
     fetch(`${BaseURL}/check/${"+" + location.state.phone}/${data.code}`, {
       method: "GET",
       headers: {
@@ -30,7 +29,6 @@ export const LoginPage4 = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         if(res.ok === true){
           axios.patch(
           "https://api.fitbuddy.site/user",

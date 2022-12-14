@@ -25,7 +25,6 @@ export const MyProfilePage = () => {
     axios
       .get("https://api.fitbuddy.site/user?me=true", { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
-        console.log(res.data.data.users);
         setLoading(false)
       })
       .catch((err) => {

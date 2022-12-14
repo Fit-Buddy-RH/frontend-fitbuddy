@@ -20,21 +20,18 @@ export const LoginPage5 = () => {
   }
 
   const onSubmit = (data) => {
-    console.log(data);
     axios.patch(
       "https://api.fitbuddy.site/user",
       data,
       { headers: { 'Content-Type': 'application/json', 'authorization': user }, }
     )
     .then((res) => {
-      console.log(res.data.success);
       if (res.data.success === true) {
         navigate("/runs")
       }
     })
   }
 
-  console.log(errors);
 
 
 
