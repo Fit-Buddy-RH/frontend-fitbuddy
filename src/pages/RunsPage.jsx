@@ -15,7 +15,6 @@ export const RunsPage = () => {
   const [userAvatar, setUserAvatar] = useState();
 
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   if (!user) {
     navigate("/login-1");
   }

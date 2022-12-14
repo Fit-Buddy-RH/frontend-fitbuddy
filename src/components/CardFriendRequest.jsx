@@ -12,25 +12,6 @@ export const CardFriendRequest = (params) => {
     navigate("/login-1");
   }
 
-  const acceptRace = () => {
-    axios
-      .patch(
-        `https://api.fitbuddy.site/raceRequest/${params.requestId}`,
-        {
-          status: "Aceptado",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: user,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
-  };
-
   const acceptRequest = () => {
     axios
       .patch(
@@ -47,6 +28,7 @@ export const CardFriendRequest = (params) => {
       )
       .then((res) => {
         console.log(res);
+        window.location.reload();
       });
   };
 
@@ -54,7 +36,6 @@ export const CardFriendRequest = (params) => {
     axios
       .delete(
         `https://api.fitbuddy.site/friendRequest/${params.requestId}`,
-        {},
         {
           headers: {
             "Content-Type": "application/json",
@@ -64,25 +45,10 @@ export const CardFriendRequest = (params) => {
       )
       .then((res) => {
         console.log(res);
+        window.location.reload();
       });
   };
 
-  const rejectRace = () => {
-    axios
-      .delete(
-        `https://api.fitbuddy.site/friendRequest/${params.requestId}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: user,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
-  };
 
   return (
     <div className="card-race__container bg-black-600 transition rounded-xl flex flex-row mb-8">

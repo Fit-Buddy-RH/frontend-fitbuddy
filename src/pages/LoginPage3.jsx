@@ -29,7 +29,6 @@ export const LoginPage3 = () => {
   }
 
   const onSubmit = (data) => {
-    console.log(data);
     fetch(`${BaseURL}/verify/${"+"+data.phone}`, {
       method: "GET",
       headers: {

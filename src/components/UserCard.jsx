@@ -7,10 +7,12 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export const UserCard = (params) => {
+export const UserCard = ({setErrorState, setShowModal, ...params }) => {
   const [userId, setUserId] = useState();
   const [userFriends, setUserFriends] = useState();
   const [friend, setFriend] = useState(false);
+
+
   const urlId = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -22,12 +24,12 @@ export const UserCard = (params) => {
     axios
       .post(`https://api.fitbuddy.site/friendRequest/${urlId.id}`, {}, { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
-        console.log(res);
-        alert("Solicitud de amistad enviada")
+        // alert("Solicitud de amistad enviada")
+        setShowModal(true);
       })
       .catch((error) => {
         console.log(error.response.data.message);
-        alert(error.response.data.message);
+        setErrorState(true);
       });
   };
 
@@ -39,10 +41,10 @@ export const UserCard = (params) => {
       .then((res) => {
         setUserFriends(res.data.data.users.friends);
         res.data.data.users.friends.map((friend) => {
-          if (friend._id === urlId.id){
-            setFriend(true)
+          if (friend._id === urlId.id) {
+            setFriend(true);
           }
-        })
+        });
         setUserId(res.data.data.users._id);
       })
       .catch((err) => {
@@ -60,7 +62,7 @@ export const UserCard = (params) => {
           <img className="desktop-navbar__actions__image h-40 w-40 rounded-full self-center" src={params.image} alt="User avatar" />
           <h2 className="px-4 mt-4 text-gray-50 text-xl font-bold text-center italic">{params.fullname}</h2>
         </section>
-        {(userId === params.id) || friend ? (
+        {userId === params.id || friend ? (
           <p></p>
         ) : (
           <button

@@ -39,7 +39,6 @@ export const RunPage = () => {
   // const onSubmit = (data) => console.log(data);
 
   const onSubmit = (data) => {
-    console.log(data);
 
     axios
       .post(
@@ -52,7 +51,6 @@ export const RunPage = () => {
         { headers: { "Content-Type": "application/json", authorization: user } }
       )
       .then((res) => {
-        console.log(res);
         window.location.reload(false);
       });
   };

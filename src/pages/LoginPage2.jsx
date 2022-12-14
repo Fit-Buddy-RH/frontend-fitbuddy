@@ -13,7 +13,6 @@ export const LoginPage2 = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("https://api.fitbuddy.site/user", {
         email: data.email,
@@ -22,7 +21,6 @@ export const LoginPage2 = () => {
         lastname: data.lastName,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.message === "Usuario creado con éxito") {
           localStorage.setItem("user", JSON.stringify(response.data.token));
           navigate("/login-3");
@@ -32,12 +30,10 @@ export const LoginPage2 = () => {
         console.log(err);
       });
   };
-  console.log(errors);
 
   const googleLogin = useGoogleLogin({
     // flow: "auth-code",
     onSuccess: async (codeResponse) => {
-      console.log(codeResponse.access_token);
       const token = { access_token: codeResponse.access_token };
       await axios.post("https://api.fitbuddy.site/google", token).then((response) => {
         console.log(response);
