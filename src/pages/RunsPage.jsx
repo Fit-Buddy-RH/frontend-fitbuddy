@@ -43,7 +43,7 @@ export const RunsPage = () => {
             });
         });
       } else {
-        console.log("Geolocation not supported")
+        console.log("Geolocation not supported");
       }
     }
     getLocation();
@@ -83,14 +83,17 @@ export const RunsPage = () => {
               </button>
             </Link>
           </section>
-          {nearRaces &&
-            nearRaces.map((race) => {
+          {nearRaces && nearRaces.length > 0 ?
+            (nearRaces.map((race) => {
               return (
                 <section key={race._id} className="col-span-6 md:col-span-12 lg:col-span-6 ">
                   <CardRaces title={race.title} description={race.description} avatar={race.user.image} id={race._id} image={race.image} />
                 </section>
               );
-            })}
+            })) :
+            (
+              <h2 className="text-gray-500 col-span-full font-rubik text-lg mb-20">Aún no existe a ninguna carrera cerca. ¿Quieres empezar con una?</h2>
+            )}
           {/* <section className="col-span-6 md:col-span-12 lg:col-span-6">
           <CardRaces />
         </section>

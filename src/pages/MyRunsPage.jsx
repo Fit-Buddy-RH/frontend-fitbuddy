@@ -65,13 +65,17 @@ export const MyRunsPage = () => {
               </button>
             </Link>
           </section>
-          {myRaces.map((race) => {
-            return (
-              <section key={race._id} className="col-span-6 md:col-span-12 lg:col-span-6">
-                <CardRaces title={race.title} description={race.description} avatar={race.user.image} id={race._id} image={race.image} />
-              </section>
-            );
-          })}
+          {myRaces && myRaces.length > 0 ? (
+            myRaces.map((race) => {
+              return (
+                <section key={race._id} className="col-span-6 md:col-span-12 lg:col-span-6">
+                  <CardRaces title={race.title} description={race.description} avatar={race.user.image} id={race._id} image={race.image} />
+                </section>
+              );
+            })
+          ) : (
+            <h2 className="text-gray-500 col-span-full font-rubik text-lg mb-20">Aún no creaste ninguna carrera. ¿Quieres empezar con una?</h2>
+          )}
           {/* <section className="col-span-6 md:col-span-12 lg:col-span-6">
           <CardRaces title={"prueba"} description={"descr"} image={"link"} />
         </section>
