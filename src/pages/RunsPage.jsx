@@ -21,21 +21,21 @@ export const RunsPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`https://api.fitbuddy.site/race?long=${geolocation.longitude}&&lat=${geolocation.latitude}`, {
-        headers: { "Content-Type": "application/json", authorization: user },
-      })
-      .then((res) => {
-        setNearRaces(res.data.data.races);
-        setLoading(false);
-      })
-      .catch((err) => {
-
-        if (err.response.data.error === "jwt expired") {
-          navigate("/login-1");
-        }
-
-      });
+    if (geolocation.longitude && geolocation.latitude) {
+      axios
+        .get(`https://api.fitbuddy.site/race?long=${geolocation.longitude}&&lat=${geolocation.latitude}`, {
+          headers: { "Content-Type": "application/json", authorization: user },
+        })
+        .then((res) => {
+          setNearRaces(res.data.data.races);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err.response.data.error === "jwt expired") {
+            navigate("/login-1");
+          }
+        });
+    }
   }, [geolocation]);
 
   return (
