@@ -154,8 +154,8 @@ export const DashboardPage = () => {
                       ) : (
                         // <CardRaceSent name={"a"} />
                         <section>
-                          <h2 className="text-gray-500 font-rubik mb-4">
-                            Aún no recibiste enviaste solicitud de carrera. Cuando tengas alguna aparecerá aquí.
+                          <h2 className="text-gray-500 font-rubik text-lg mb-4">
+                            Aún no enviaste solicitud de carrera. Cuando tengas alguna aparecerá aquí.
                           </h2>
                         </section>
                       )}
@@ -181,7 +181,7 @@ export const DashboardPage = () => {
                         })
                       ) : (
                         <section>
-                          <h2 className="text-gray-500 font-rubik mb-4">
+                          <h2 className="text-gray-500 font-rubik text-lg mb-4">
                             Aún no recibiste ninguna solicitud de carrera. Cuando tengas alguna aparecerá aquí.
                           </h2>
                         </section>

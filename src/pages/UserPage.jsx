@@ -265,7 +265,7 @@ export const UserPage = () => {
               <div className="flex-auto">
                 <div className="w-full">
                   <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold ">Carreras Creadas</h2>
+                    <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">Carreras Creadas</h2>
                     {userRacesCreated && userRacesCreated.length > 0 ? (
                       userRacesCreated.map((race) => {
                         return (
@@ -281,7 +281,7 @@ export const UserPage = () => {
                         );
                       })
                     ) : (
-                      <h2 className="text-gray-500 font-rubik mb-4">Aún no asististe a ninguna carrera. ¿Quieres empezar con una?</h2>
+                      <h2 className="text-gray-500 font-rubik text-lg mb-20">Aún no asististe a ninguna carrera. ¿Quieres empezar con una?</h2>
                     )}
                     <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold">Carreras Asistidas</h2>
                     {userRacesAssisted && userRacesAssisted.length > 0 ? (
