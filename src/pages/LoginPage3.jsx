@@ -36,7 +36,6 @@ export const LoginPage3 = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         navigate('/login-4',{state:{phone:data.phone}})
       })
   };

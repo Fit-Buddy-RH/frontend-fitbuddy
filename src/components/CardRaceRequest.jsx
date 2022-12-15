@@ -26,7 +26,6 @@ export const CardRaceRequest = (params) => {
         }
       )
       .then((res) => {
-        console.log(res);
         window.location.reload();
       });
   };

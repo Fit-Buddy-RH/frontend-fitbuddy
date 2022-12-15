@@ -34,7 +34,6 @@ export const LoginPage1 = () => {
         setLoginError(err.response.data.message);
       });
   };
-  console.log(errors);
 
   const googleLogin = useGoogleLogin({
     // flow: "auth-code",
