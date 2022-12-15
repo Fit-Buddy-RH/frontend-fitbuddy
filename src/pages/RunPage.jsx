@@ -24,8 +24,10 @@ export const RunPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [userLoggedId, setUserLoggedId] = useState();
+  const [userAccepted, setUserAccepted] = useState(false);
   const [runValues, setRunValues] = useState();
   const [userValues, setUserValues] = useState();
+  const [raceAssistants, setRaceAssistants] = useState();
   const [rating, setRating] = useState(0);
   const [commentValues, setCommentValues] = useState([]);
   const params = useParams();
@@ -36,10 +38,7 @@ export const RunPage = () => {
     navigate("/login-1");
   }
 
-  // const onSubmit = (data) => console.log(data);
-
   const onSubmit = (data) => {
-
     axios
       .post(
         `https://api.fitbuddy.site/comment/${params.id}`,
@@ -57,13 +56,22 @@ export const RunPage = () => {
 
   useEffect(() => {
     setLoading(true);
+
     axios
-      .get(`https://api.fitbuddy.site/race?race=${params.id}`, {
-        headers: { "Content-Type": "application/json", authorization: user },
-      })
+      .get("https://api.fitbuddy.site/user?me=true", { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
-        setRunValues(res.data.data.races);
-        setUserValues(res.data.data.races.user);
+        setUserLoggedId(res.data.data.users._id);
+        setLoading(false);
+        axios
+          .get(`https://api.fitbuddy.site/race?race=${params.id}`, {
+            headers: { "Content-Type": "application/json", authorization: user },
+          })
+          .then((res) => {
+            setRaceAssistants(res.data.data.races.assistants);
+            setUserAccepted(res.data.data.races.assistants.includes(userLoggedId));
+            setRunValues(res.data.data.races);
+            setUserValues(res.data.data.races.user);
+          })
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -71,6 +79,7 @@ export const RunPage = () => {
           navigate("/login-1");
         }
       });
+
 
     axios
       .get(`https://api.fitbuddy.site/comment/${params.id}`, {
@@ -85,22 +94,8 @@ export const RunPage = () => {
           navigate("/login-1");
         }
       });
+  }, [userLoggedId]);
 
-    axios
-      .get("https://api.fitbuddy.site/user?me=true", { headers: { "Content-Type": "application/json", authorization: user } })
-      .then((res) => {
-        setUserLoggedId(res.data.data.users._id);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err.response.data.error);
-        if (err.response.data.error === "jwt expired") {
-          navigate("/login-1");
-        }
-      });
-  }, []);
-
-  let userAccepted = false;
   return (
     <DefaultLayout>
       {loading ? (
@@ -150,6 +145,7 @@ export const RunPage = () => {
                   user={runValues.user}
                   status={runValues.status}
                   rate={runValues.rating.$numberDecimal}
+                  userAccepted={userAccepted}
                 />
               )}
             </section>
@@ -248,7 +244,7 @@ export const RunPage = () => {
                   : null}
               </section>
             ) : (
-              <hr />
+              <p></p>
             )
           ) : null}
         </div>

@@ -145,7 +145,7 @@ export const Navbar = () => {
         )}
       </div>
 
-      <div className={location.pathname === ("/runs" || "/my-runs") ? "flex flex-row gap-8 my-4 md:hidden" : "hidden"}>
+      <div className={location.pathname === ("/runs") || location.pathname === "/my-runs" ? "flex flex-row gap-8 my-4 md:hidden" : "hidden"}>
         <Link to="/runs">
           <button
             className={

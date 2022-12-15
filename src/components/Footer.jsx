@@ -12,7 +12,7 @@ export const Footer = () => {
             </section>
             <section className="flex flex-row justify-center gap-4 p-4">
                 <button>
-                    <FacebookIcon/>
+                    <FacebookIcon className="scale-75"/>
                 </button>
                 <button>
                     <TwitterIcon/>
