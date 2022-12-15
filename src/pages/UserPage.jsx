@@ -161,6 +161,8 @@ export const UserPage = () => {
                     image={userValues.image}
                     assisted={userRacesAssisted.length}
                     fullname={userValues.fullname}
+                    name={userValues.name}
+                    lastname={userValues.lastname}
                     friends={userValues.friends.length}
                     level={userValues.level}
                     created={userValues.racesCreated.length}
@@ -353,6 +355,8 @@ export const UserPage = () => {
                   assisted={userRacesAssisted.length}
                   fullname={userValues.fullname}
                   friends={userValues.friends.length}
+                  name={userValues.name}
+                  lastname={userValues.lastname}
                   level={userValues.level}
                   created={userValues.racesCreated.length}
                   className="user__card-content"

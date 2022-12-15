@@ -20,7 +20,7 @@ export const CardRace = (params) => {
               alt="User avatar"
             />
             <p className="p-2 text-gray-50 text-lg font-bold italic">
-              {params.name}
+              {params.name + " " + params.lastname}
             </p>
           </section>
         </Link>

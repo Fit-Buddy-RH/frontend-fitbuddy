@@ -17,8 +17,8 @@ export const CardMapShow = ({ latLng, setLatLng }) => {
   return (
     <Map
       initialViewState={{
-        longitude: -99.18670587646949,
-        latitude: 19.42591581551342,
+        longitude: lng,
+        latitude: lat,
         zoom:14,
         maxZoom: 14,
         minZoom:10

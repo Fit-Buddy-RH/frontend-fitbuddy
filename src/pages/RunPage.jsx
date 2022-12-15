@@ -4,7 +4,7 @@ import Rating from "@mui/material/Rating";
 import { CardRace } from "../components/CardRace";
 import { CardRaceInfo } from "../components/CardRaceInfo";
 import { CardMap } from "../components/CardMap";
-import { ReactComponent as AddPhoto } from "../assets/AddPhotoIcon.svg";
+import { ReactComponent as AddPhotoIcon } from "../assets/AddPhotoIcon.svg";
 import React, { useState, useEffect } from "react";
 import { CardComments } from "../components/CardComments";
 import axios from "axios";
@@ -22,11 +22,14 @@ export const RunPage = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [userLoggedId, setUserLoggedId] = useState();
   const [userAccepted, setUserAccepted] = useState(false);
   const [runValues, setRunValues] = useState();
   const [userValues, setUserValues] = useState();
+  const [image, setImage] = useState([]);
+  const [imageURL, setImageURL] = useState([]);
   const [raceAssistants, setRaceAssistants] = useState();
   const [rating, setRating] = useState(0);
   const [commentValues, setCommentValues] = useState([]);
@@ -39,24 +42,20 @@ export const RunPage = () => {
   }
 
   const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", data.title);
+    formData.append("text", data.comment);
+    formData.append("rate", data.rating);
+
     axios
-      .post(
-        `https://api.fitbuddy.site/comment/${params.id}`,
-        {
-          title: data.title,
-          text: data.comment,
-          rate: 5,
-        },
-        { headers: { "Content-Type": "application/json", authorization: user } }
-      )
+      .post(`https://api.fitbuddy.site/comment/${params.id}`, formData, { headers: { "Content-Type": "multipart/form-data", authorization: user } })
       .then((res) => {
         window.location.reload(false);
       });
   };
-
   useEffect(() => {
     setLoading(true);
-
     axios
       .get("https://api.fitbuddy.site/user?me=true", { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
@@ -71,7 +70,7 @@ export const RunPage = () => {
             setUserAccepted(res.data.data.races.assistants.includes(userLoggedId));
             setRunValues(res.data.data.races);
             setUserValues(res.data.data.races.user);
-          })
+          });
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -79,7 +78,6 @@ export const RunPage = () => {
           navigate("/login-1");
         }
       });
-
 
     axios
       .get(`https://api.fitbuddy.site/comment/${params.id}`, {
@@ -95,6 +93,16 @@ export const RunPage = () => {
         }
       });
   }, [userLoggedId]);
+
+  useEffect(() => {
+    if (image.length < 1) return;
+    const newImageURL = URL.createObjectURL(image);
+    setImageURL(newImageURL);
+  }, [image]);
+
+  const onImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   return (
     <DefaultLayout>
@@ -126,7 +134,8 @@ export const RunPage = () => {
             {userValues && (
               <CardRace
                 id={userValues._id}
-                name={userValues.fullname}
+                name={userValues.name}
+                lastname={userValues.lastname}
                 image={runValues.image}
                 avatar={userValues.image}
                 title={runValues.title}
@@ -180,14 +189,20 @@ export const RunPage = () => {
                         </section>
                         <section className="col-span-12 flex flex-col md:col-span-10 bg-black-700 rounded-xl p-4 m-4">
                           <section className="flex flex-col md:flex-row justify-between items-center mb-4">
-                            <input
-                              type="text"
-                              className={`md:w-[239px] md:h-[59px] text-{5px} md:text-{16px} pl-1.5 border-b-2 outline-none font-rubik rounded-lg md:w-[358px] h-[54px]  ${
-                                errors.title ? "placeholder-orange-900 border-orange-900" : "text-black-700 border-violet-900"
-                              }`}
-                              placeholder="Escribe un título..."
-                              {...register("title", { required: true, maxLength: 100 })}
-                            />
+                            <div className="flex flex-row">
+                              <input
+                                type="text"
+                                className={`md:w-[239px] md:h-[59px] text-{5px} md:text-{16px} pl-1.5 border-b-2 outline-none font-rubik rounded-lg md:w-[358px] h-[54px]  ${
+                                  errors.title ? "placeholder-orange-900 border-orange-900" : "text-black-700 border-violet-900"
+                                }`}
+                                placeholder="Escribe un título..."
+                                {...register("title", { required: true, maxLength: 100 })}
+                              />
+                              <input accept="image/*" id="icon-button-file" type="file" className="hidden" onChange={onImageChange} />
+                              <label htmlFor="icon-button-file" className="cursor-pointer self-center ml-8 scale-125">
+                                <AddPhotoIcon />
+                              </label>
+                            </div>
                             <Rating
                               name="rating"
                               className="mt-4 md:mt-0"
@@ -214,6 +229,9 @@ export const RunPage = () => {
                             label="comentanos"
                             {...register("comment", { required: true, maxLength: 400 })}
                           ></textarea>
+                          {imageURL && (
+                            <img className="max-h-80 object-contain mb-4 image_file" src={imageURL} />
+                          )}
                           <input
                             onClick={() => setValue("rating", rating)}
                             type="submit"

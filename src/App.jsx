@@ -11,6 +11,7 @@ import { RunsPage } from "./pages/RunsPage";
 import { UserPage } from "./pages/UserPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { CreateRunPage } from "./pages/CreateRunPage";
+import { EditRunPage } from "./pages/EditRunPage";
 import { LoginPage3 } from "./pages/LoginPage3";
 import { LoginPage4 } from "./pages/LoginPage4";
 import { LoginPage5 } from "./pages/LoginPage5";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/my-runs" element={<MyRunsPage />} />
         <Route path="/run/:id" element={<RunPage />} />
         <Route path="/post" element={<CreateRunPage />} />
+        <Route path="/edit/:id" element={<EditRunPage />} />
         <Route path="/user/:id" element={<UserPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
 
