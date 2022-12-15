@@ -18,6 +18,9 @@ export const CardComments = (params) => {
             </section>
           </section>
           <p className="text-gray-50 text-sm my-4 mr-4">{params.text}</p>
+          <section>
+            <img src={params.image} className="max-h-80 object-contain mb-4" alt="" />
+          </section>
         </section>
       </div>
     </div>

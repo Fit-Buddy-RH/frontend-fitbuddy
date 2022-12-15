@@ -2,7 +2,7 @@ import { ReactComponent as RunningIcon } from "../assets/RaceCardBackground.svg"
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Rating from "@mui/material/Rating";
 
@@ -132,13 +132,15 @@ export const CardRaceInfo = (params) => {
           <p className="px-4 text-gray-50 text-lg font-bold italic">{params.quantity + 1} personas</p>
         </section>
         {userId === params.user._id && params.status === "Programada" ? (
-          <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 mt-2">
-            <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 mx-8 py-2 rounded-full hover:bg-orange-900">
-              Editar
-            </button>
+          <div className="flex flex-col justify-around lg:flex-row gap-4 lg:gap-0 mt-4">
+            <Link to={`/edit/${urlParams.id}`}>
+              <button className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full hover:bg-orange-900">
+                Editar
+              </button>
+            </Link>
             <button
               onClick={deletePost}
-              className="bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2 mx-8 lg:mx-0 rounded-full hover:bg-orange-900"
+              className="bg-gray-900 relative w-40 text-gray-50 text-2xl font-bold italic px-8 py-2 rounded-full hover:bg-orange-900"
             >
               Eliminar
             </button>
