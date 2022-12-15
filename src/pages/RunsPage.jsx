@@ -21,22 +21,33 @@ export const RunsPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    if (geolocation.longitude && geolocation.latitude) {
-      axios
-        .get(`https://api.fitbuddy.site/race?long=${geolocation.longitude}&&lat=${geolocation.latitude}`, {
-          headers: { "Content-Type": "application/json", authorization: user },
-        })
-        .then((res) => {
-          setNearRaces(res.data.data.races);
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (err.response.data.error === "jwt expired") {
-            navigate("/login-1");
-          }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const crd = pos.coords;
+          // console.log(`Latitude : ${crd.latitude}`);
+          // console.log(`Longitude: ${crd.longitude}`);
+          axios
+            .get(`https://api.fitbuddy.site/race?long=${crd.longitude}&&lat=${crd.latitude}`, {
+              headers: { "Content-Type": "application/json", authorization: user },
+            })
+            .then((res) => {
+              setNearRaces(res.data.data.races);
+              setLoading(false);
+            })
+            .catch((err) => {
+              if (err.response.data.error === "jwt expired") {
+                navigate("/login-1");
+              }
+            });
         });
+      } else {
+        console.log("Geolocation not supported")
+      }
     }
-  }, [geolocation]);
+    getLocation();
+  }, []);
 
   return (
     <DefaultLayout>
