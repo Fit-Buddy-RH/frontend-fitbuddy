@@ -30,7 +30,7 @@ export const DashboardPage = () => {
         setRequests(res.data.data.raceRequests);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
+
         if (err.response.data.error === "jwt expired") {
           navigate("/login-1");
         }
@@ -47,12 +47,11 @@ export const DashboardPage = () => {
             headers: { "Content-Type": "application/json", authorization: user },
           })
           .then((res) => {
-            console.log(res.data.data.requests);
             setUserRequests(res.data.data.requests);
             setLoading(false);
           })
           .catch((err) => {
-            console.log(err.response.data.error);
+  
             if (err.response.data.error === "jwt expired") {
               navigate("/login-1");
             }

@@ -17,7 +17,6 @@ export const CardRaceInfo = (params) => {
   const [runUserId, setRunUserId] = useState();
   const [requestDone, setRequestDone] = useState(false);
 
-  // console.log(date.getUTCHours());
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {

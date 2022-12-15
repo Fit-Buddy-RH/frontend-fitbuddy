@@ -27,7 +27,6 @@ export const CardFriendRequest = (params) => {
         }
       )
       .then((res) => {
-        console.log(res);
         window.location.reload();
       });
   };
@@ -44,7 +43,6 @@ export const CardFriendRequest = (params) => {
         }
       )
       .then((res) => {
-        console.log(res);
         window.location.reload();
       });
   };

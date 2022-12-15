@@ -26,10 +26,10 @@ export const UserCard = ({ setErrorState, setShowModal, ...params }) => {
     formState: { errors },
   } = useForm();
 
-  console.log(params);
+
 
   const onSubmit = (data) => {
-    console.log(data);
+
     const formData = new FormData();
 
     if (imageChange === false) {
