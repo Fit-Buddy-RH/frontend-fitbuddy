@@ -2,11 +2,13 @@ import axios from "axios";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { ReactComponent as FitbuddyIcon } from "../assets/FitbuddyIcon.svg";
 import { ReactComponent as GoogleIcon } from "../assets/GoogleIconButton.svg";
 
 export const LoginPage1 = () => {
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState();
   const {
     register,
     handleSubmit,
@@ -28,8 +30,8 @@ export const LoginPage1 = () => {
         }
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-        alert(err.response.data.message)
+        console.log(err.response.data);
+        setLoginError(err.response.data.message);
       });
   };
   console.log(errors);
@@ -59,7 +61,9 @@ export const LoginPage1 = () => {
           <FitbuddyIcon />
           <h1 className="p-2 text-gray-50 font-rubik text-2xl italic font-bold">Fitbuddy</h1>
         </div>
+
         <div className="my-4 w-48 text-gray-50 text-center">Escribe tu email y tu contraseña para iniciar sesión:</div>
+
         <div>
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <input
@@ -80,7 +84,7 @@ export const LoginPage1 = () => {
               {...register("password", { required: true, minLength: 6 })}
             />
             {errors.password && <p className="text-orange-900 text-sm -mt-2">Introduce una contraseña válida</p>}
-
+            {loginError && <p className="text-orange-900 text-sm -mt-2 ">Usuario o contraseña incorrecto</p>}
             <input
               type="submit"
               value="Iniciar Sesión"

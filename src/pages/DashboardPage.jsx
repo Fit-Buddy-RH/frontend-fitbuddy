@@ -95,10 +95,10 @@ export const DashboardPage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-12 gap-4 place-items-center">
-          <section className="col-start-3 col-span-8 place-self-start text-gray-50 ">
-            <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-8">Solicitudes de Carreras</h2>
-            <div className="">
-              <ul className="flex list-none flex-row bg-gray-800 rounded-full tabs__container-dashboard" role="tablist">
+          <section className="md:col-start-3 md:col-span-8 col-span-12 place-self-start text-gray-50 ">
+            <h2 className="md:text-xl lg:text-2xl text-gray-50 text-center md:text-start font-rubik italic font-bold mb-8">Solicitudes de Carreras</h2>
+            <div className="flex flex-col items-center md:items-start">
+              <ul className="flex flex-row list-none items-center justify-center bg-gray-800 rounded-full tabs__container-dashboard" role="tablist">
                 <li className="text-center">
                   <a
                     className={
@@ -116,7 +116,7 @@ export const DashboardPage = () => {
                     Enviadas
                   </a>
                 </li>
-                <li className=" text-center">
+                <li className="text-center">
                   <a
                     className={
                       "text-xs font-bold uppercase px-5 py-3 rounded-full block leading-normal " +
@@ -135,7 +135,7 @@ export const DashboardPage = () => {
                 </li>
               </ul>
               <div className="flex-col break-words bg-white w-full mb-12 rounded">
-                <div className="px-4 py-5 flex-auto">
+                <div className="px-2 md:px-4 py-5 flex-auto">
                   <div className="">
                     <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                       {userRequests && userRequests.length > 0 ? (

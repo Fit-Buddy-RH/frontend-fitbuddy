@@ -300,7 +300,6 @@ export const UserPage = () => {
                     <h2 className="md:text-xl lg:text-2xl text-gray-50 font-rubik italic font-bold mb-4">Solicitudes de amistad</h2>
                     {friendRequests && friendRequests.length > 0 ? (
                       friendRequests.map((request) => {
-                        console.log(request);
                         return (
                           <CardFriendRequest
                             requestId={request._id}

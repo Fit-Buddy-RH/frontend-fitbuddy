@@ -13,7 +13,7 @@ mapboxgl.accessToken =
 
 export const CardMap = (props) => {
   const [userId, setUserId] = useState();
-
+  console.log(props.userAccepted)
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     navigate("/login-1");

@@ -30,18 +30,14 @@ export const CardRaceInfo = (params) => {
         headers: { "Content-Type": "application/json", authorization: user },
       })
       .then((res) => {
-        console.log(res.data.data.users);
         setUserId(res.data.data.users._id);
         axios
           .get(`https://api.fitbuddy.site/raceRequest?idUser=${res.data.data.users._id}`, {
             headers: { "Content-Type": "application/json", authorization: user },
           })
           .then((res) => {
-            console.log(res.data.data.requests);
             res.data.data.requests.map((req) => {
-              console.log(req.race._id);
               if (req.race._id === urlParams.id) {
-                console.log("Request already done");
                 setRequestDone(true);
               }
             });
@@ -82,11 +78,11 @@ export const CardRaceInfo = (params) => {
   };
 
   return (
-    <div className="card-race-info__container bg-violet-900  transition rounded-xl flex flex-col justify-center">
-      <div className="relative my-4 md:my-0 md:ml-4 ml-8 overflow-clip py-10">
+    <div className="card-race-info__container bg-violet-900 transition rounded-xl flex flex-col justify-center">
+      <div className="relative my-0 md:ml-4 ml-8 overflow-clip py-10">
         <RunningIcon className="absolute right-0 z-0 top-10 " />
         {params.status === "Finalizada" && (
-          <section className="pl-3 content-evenly relative flex">
+          <section className="pl-3 mb-2 content-evenly relative flex">
             <Rating name="half-rating-read" value={4.3} precision={0.5} readOnly />
             <h2 className="px-4 text-gray-50 text-xl font-bold italic">{params.rate} de calificación</h2>
           </section>
@@ -114,7 +110,7 @@ export const CardRaceInfo = (params) => {
             <div className="opacity-50 fixed inset-0 z-40 bg-black-700"></div>
           </>
         ) : null}
-        <section className="pt-4 relative">
+        <section className="pt-0 relative">
           <h2 className="px-4 text-gray-50 text-2xl font-bold italic">Tipo de evento</h2>
           <p className="px-4 text-gray-50 text-lg font-bold italic">{params.type}</p>
         </section>
@@ -150,7 +146,8 @@ export const CardRaceInfo = (params) => {
         ) : userId !== params.user._id && params.status === "Programada" ? (
           <button
             onClick={requestDone || requestSent ? null : sendRequest}
-            className={`bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2  my-12 rounded-full
+            className={`bg-gray-900 relative text-gray-50 text-2xl font-bold italic px-8 py-2 mt-12 rounded-full
+            ${params.userAccepted ? "hidden" : ""}
             ${requestDone || requestSent ? "bg-gray-800 cursor-not-allowed disable" : "hover:bg-orange-900"}
             `}
           >
