@@ -170,7 +170,7 @@ export const RunPage = () => {
             )}
           </section>
           {runValues ? (
-            runValues.status === "Finalizada" ? (
+            runValues.status === "Terminada" ? (
               <section className="col-span-12">
                 <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">Escribe un comentario</h2>
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
