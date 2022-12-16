@@ -311,7 +311,8 @@ export const UserPage = () => {
                             level={request.userRequester.level}
                             created={request.userRequester.racesCreated.length}
                             image={request.userRequester.image}
-                            name={request.userRequester.fullname}
+                            name={request.userRequester.name}
+                            lastname={request.userRequester.lastname}
                             userToken={user}
                           />
                         );
@@ -327,7 +328,8 @@ export const UserPage = () => {
                         return (
                           <Link to={`/user/${friend._id}`} key={friend._id}>
                             <CardUserProfile
-                              name={friend.fullname}
+                              name={friend.name}
+                              lastname={friend.lastname}
                               friends={friend.friends.length}
                               created={friend.racesCreated.length}
                               image={friend.image}
