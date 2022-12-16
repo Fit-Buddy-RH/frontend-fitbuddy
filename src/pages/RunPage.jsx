@@ -184,7 +184,7 @@ export const RunPage = () => {
                             alt="User avatar"
                           />
                           <div>
-                            <h3 className="md:block text-gray-50 md:text-xl font-bold italic md:mb-4 text-center">{userValues.fullname}</h3>
+                            <h3 className="md:block text-gray-50 md:text-xl font-bold italic md:mb-4 text-center">{userValues.name + " " + userValues.lastname}</h3>
                           </div>
                         </section>
                         <section className="col-span-12 flex flex-col md:col-span-10 bg-black-700 rounded-xl p-4 m-4">
@@ -247,9 +247,11 @@ export const RunPage = () => {
                 <h2 className="mb-8 font-rubik font-bold italic text-gray-50 text-xl">Comentarios de la carrera</h2>
                 {commentValues
                   ? commentValues.map((comment) => {
+                    console.log(comment)
                       return (
                         <CardComments
-                          name={comment.user.fullname}
+                          name={comment.user.name}
+                          lastname={comment.user.lastname}
                           userImage={comment.user.image}
                           image={comment.image}
                           rate={comment.rate}
