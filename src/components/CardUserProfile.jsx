@@ -15,7 +15,7 @@ export const CardUserProfile = (params) => {
         />
         <div className="pl-2 flex flex-col sm:flex-row w-full">
                 <div className="py-2 px-4 w-full">
-                    <h2 className=" text-gray-50 text-xl font-bold italic ">{params.name}</h2>
+                    <h2 className=" text-gray-50 text-xl font-bold italic ">{params.name + " " + params.fullname}</h2>
                     <section className="grid grid-cols-2 grid-rows-2">
                         <section className="relative right-4 flex flex-col  items-center">
                             <FriendsIcon className="scale-m -m-4"/>
