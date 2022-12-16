@@ -17,7 +17,7 @@ export const CardRaceInfo = (params) => {
   const [runUserId, setRunUserId] = useState();
   const [requestDone, setRequestDone] = useState(false);
 
-
+  console.log(params)
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     navigate("/login-1");
@@ -80,9 +80,9 @@ export const CardRaceInfo = (params) => {
     <div className="card-race-info__container bg-violet-900 transition rounded-xl flex flex-col justify-center">
       <div className="relative my-0 md:ml-4 ml-8 overflow-clip py-10">
         <RunningIcon className="absolute right-0 z-0 top-10 " />
-        {params.status === "Finalizada" && (
+        {params.status === "Terminada" && (
           <section className="pl-3 mb-2 content-evenly relative flex">
-            <Rating name="half-rating-read" value={4.3} precision={0.5} readOnly />
+            <Rating name="half-rating-read" value={params.rate} precision={0.5} readOnly />
             <h2 className="px-4 text-gray-50 text-xl font-bold italic">{params.rate} de calificación</h2>
           </section>
         )}
@@ -154,7 +154,7 @@ export const CardRaceInfo = (params) => {
           >
             {requestDone || requestSent ? "Solicitud enviada" : "Unirse"}
           </button>
-        ) : params.status === "Finalizada" ? (
+        ) : params.status === "Terminada" ? (
           <section className="pt-6">
             <span className="text-gray-50 ml-4 bg-violet-900 text-3xl underline drop-shadow-xl shadow-orange-900 font-bold italic rounded-full ">
               Finalizada

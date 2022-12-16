@@ -25,6 +25,7 @@ export const RunPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [userLoggedId, setUserLoggedId] = useState();
+  const [userLogged, setUserLogged] = useState();
   const [userAccepted, setUserAccepted] = useState(false);
   const [runValues, setRunValues] = useState();
   const [userValues, setUserValues] = useState();
@@ -60,6 +61,7 @@ export const RunPage = () => {
       .get("https://api.fitbuddy.site/user?me=true", { headers: { "Content-Type": "application/json", authorization: user } })
       .then((res) => {
         setUserLoggedId(res.data.data.users._id);
+        setUserLogged(res.data.data.users)
         setLoading(false);
         axios
           .get(`https://api.fitbuddy.site/race?race=${params.id}`, {
@@ -180,11 +182,11 @@ export const RunPage = () => {
                         <section className="col-span-12 md:col-span-2 flex flex-row md:flex-col justify-center items-center gap-4 md:p-4 mt-4 md:mt-0">
                           <img
                             className="desktop-navbar__actions__image h-10 w-10 md:h-14 md:w-14 md:mb-4 rounded-full"
-                            src={userValues.image}
+                            src={userLogged.image}
                             alt="User avatar"
                           />
                           <div>
-                            <h3 className="md:block text-gray-50 md:text-xl font-bold italic md:mb-4 text-center">{userValues.name + " " + userValues.lastname}</h3>
+                            <h3 className="md:block text-gray-50 md:text-xl font-bold italic md:mb-4 text-center">{userLogged.name + " " + userLogged.lastname}</h3>
                           </div>
                         </section>
                         <section className="col-span-12 flex flex-col md:col-span-10 bg-black-700 rounded-xl p-4 m-4">
